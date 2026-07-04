@@ -75,7 +75,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedPlanName, onOpenMeetin
                   <CheckCircle size={36} />
                 </div>
                 <h3 className="text-xl font-bold text-slate-850 dark:text-white">
-                  We will connect shortly
+                  We connect Shortly
                 </h3>
               </div>
             ) : (

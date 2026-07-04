@@ -9,13 +9,21 @@ app.use(cors());
 app.use(express.json());
 
 // PostgreSQL connection pool (Loads from .env file or Vercel env variables)
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined
-});
+const hasDatabase = !!process.env.DATABASE_URL;
+let pool;
+if (hasDatabase) {
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined
+  });
+}
 
 // Initialize database tables
 const initDB = async () => {
+  if (!hasDatabase) {
+    console.log('No DATABASE_URL found. Running in MOCK mode (no database).');
+    return;
+  }
   try {
     const client = await pool.connect();
     
@@ -59,6 +67,11 @@ initDB();
 // POST endpoint: Receive client leads from website
 app.post('/api/leads', async (req, res) => {
   const { name, email, phone, service, budget, message, date } = req.body;
+  
+  if (!hasDatabase) {
+    console.log(`[MOCK DB] New lead saved! Client: ${name}`);
+    return res.status(200).json({ success: true, leadId: 999 });
+  }
 
   const insertSQL = `
     INSERT INTO leads (name, phone, category, requirements, email, budget, date)
@@ -77,6 +90,7 @@ app.post('/api/leads', async (req, res) => {
 
 // GET endpoint: Review collected client data
 app.get('/api/leads', async (req, res) => {
+  if (!hasDatabase) return res.status(200).json([]);
   try {
     const result = await pool.query('SELECT * FROM leads ORDER BY id DESC');
     res.status(200).json(result.rows);
@@ -89,6 +103,11 @@ app.get('/api/leads', async (req, res) => {
 // POST endpoint: Receive strategy call bookings from website
 app.post('/api/bookings', async (req, res) => {
   const { name, email, phone, service, budget, message, date } = req.body;
+
+  if (!hasDatabase) {
+    console.log(`[MOCK DB] New booking saved! Client: ${name}`);
+    return res.status(200).json({ success: true, bookingId: 999 });
+  }
 
   const insertSQL = `
     INSERT INTO strategy_calls (name, phone, category, requirements, email, budget, date)
@@ -107,6 +126,7 @@ app.post('/api/bookings', async (req, res) => {
 
 // GET endpoint: Review collected booking data
 app.get('/api/bookings', async (req, res) => {
+  if (!hasDatabase) return res.status(200).json([]);
   try {
     const result = await pool.query('SELECT * FROM strategy_calls ORDER BY id DESC');
     res.status(200).json(result.rows);

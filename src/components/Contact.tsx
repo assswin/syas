@@ -7,7 +7,7 @@ interface ContactProps {
   onOpenMeeting: () => void;
 }
 
-export const Contact: React.FC<ContactProps> = ({ selectedPlanName, onOpenMeeting }) => {
+export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
   const { t } = useLanguage();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -89,11 +89,7 @@ export const Contact: React.FC<ContactProps> = ({ selectedPlanName, onOpenMeetin
                   </p>
                 </div>
 
-                {selectedPlanName && (
-                  <div className="p-3 text-xs font-bold rounded-xl bg-indigo-50 dark:bg-indigo-950/30 text-indigo-705 dark:text-indigo-400 border border-indigo-150 dark:border-indigo-900/50">
-                    Inquiring about plan: <span className="underline">{selectedPlanName}</span>
-                  </div>
-                )}
+                
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>

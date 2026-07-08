@@ -148,11 +148,7 @@ const MainApp: React.FC = () => {
       {/* Portfolio Projects Grid */}
       <Portfolio />
 
-      {/* Pricing Cards */}
-      <Pricing 
-        onSelectPlan={handleSelectPlan}
-        onOpenEstimator={() => setIsEstimatorOpen(true)}
-      />
+      
 
       {/* About & FAQs */}
       <TeamFAQ />

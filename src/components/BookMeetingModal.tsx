@@ -15,10 +15,12 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
-  // Generate next 6 weekdays (excluding Sunday for professionalism)
+  const sanitize = (val: string) => val.trim().replace(/<[^>]*>/g, '');
+
   const getNextDates = () => {
     const dates = [];
     const today = new Date();
@@ -27,7 +29,6 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
       const nextDate = new Date(today);
       nextDate.setDate(today.getDate() + i);
       
-      // Skip Sundays (0)
       if (nextDate.getDay() !== 0) {
         const formatted = nextDate.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
         const iso = nextDate.toISOString().split('T')[0];
@@ -49,38 +50,48 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedDate || !selectedTime || !name || !email) return;
-    
-    // Save to cumulative scoping inquiries list
+    const cleanName = sanitize(name);
+    const cleanEmail = sanitize(email);
+    const cleanPhone = sanitize(phone);
+    if (!selectedDate || !selectedTime || !cleanName || !cleanEmail || isSubmitting) return;
+
+    setIsSubmitting(true);
+
     const inquiry = {
-      name,
-      email,
-      phone: phone || 'None',
+      name: cleanName,
+      email: cleanEmail,
+      phone: cleanPhone || 'None',
       service: 'Strategy Call Booking',
       budget: 'N/A',
-      message: `Strategy call scheduled for ${selectedTime} on ${selectedDate}`,
+      message: `Strategy call scheduled for ${sanitize(selectedTime)} on ${sanitize(selectedDate)}`,
       fileAttached: 'None',
-      date: new Date().toLocaleString()
+      date: new Date().toISOString()
     };
     
-    // Post data to Node.js / MySQL backend
     fetch('/api/bookings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(inquiry)
     }).then(res => {
-      if(res.ok) setIsSuccess(true);
-    }).catch(err => console.error("Error sending to database:", err));
+      if (res.ok) setIsSuccess(true);
+    }).catch(() => {
+      // Suppress raw console errors to prevent DevTools data leaks
+    }).finally(() => {
+      setIsSubmitting(false);
+    });
     
-    // Post data to Microsoft Excel / Google Sheets Webhook pipeline (if configured)
     const BOOKING_WEBHOOK_URL = import.meta.env.VITE_BOOKING_WEBHOOK_URL || "";
-    if (BOOKING_WEBHOOK_URL) {
+    if (BOOKING_WEBHOOK_URL && BOOKING_WEBHOOK_URL !== '/api/bookings') {
+      if (window.location.protocol === 'https:' && BOOKING_WEBHOOK_URL.startsWith('http://')) {
+        return;
+      }
       fetch(BOOKING_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inquiry)
-      }).catch(err => console.error("Error sending to database:", err));
+      }).catch(() => {});
     }
+
     setTimeout(() => {
       setIsSuccess(false);
       setSelectedDate('');
@@ -185,6 +196,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                   <input
                     type="text"
                     required
+                    maxLength={100}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Jane Doe"
@@ -202,6 +214,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                   <input
                     type="email"
                     required
+                    maxLength={150}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="jane@company.com"
@@ -219,6 +232,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                   <input
                     type="tel"
                     required
+                    maxLength={30}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 99999 99999"
@@ -230,7 +244,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
 
             <button
               type="submit"
-              disabled={!selectedDate || !selectedTime || !name || !email || !phone}
+              disabled={!selectedDate || !selectedTime || !name || !email || !phone || isSubmitting}
               className="w-full bg-indigo-600 text-white font-medium text-sm py-3.5 rounded-2xl hover:bg-indigo-750 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed dark:disabled:bg-slate-800 dark:disabled:text-slate-600 transition-all duration-300"
             >
               {t('meeting.confirm')}

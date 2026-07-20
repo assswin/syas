@@ -17,46 +17,58 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
   const [message, setMessage] = useState('');
   const [fileAttachment, setFileAttachment] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const sanitize = (val: string) => val.trim().replace(/<[^>]*>/g, '');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email) return;
+    const cleanName = sanitize(name);
+    const cleanEmail = sanitize(email);
+    if (!cleanName || !cleanEmail || isSubmitting) return;
 
-    // Save lead query
+    setIsSubmitting(true);
+
     const inquiry = {
-      name,
-      email,
-      phone,
-      service,
-      budget,
-      message,
-      fileAttached: fileAttachment || 'None',
-      date: new Date().toLocaleString()
+      name: cleanName,
+      email: cleanEmail,
+      phone: sanitize(phone),
+      service: sanitize(service),
+      budget: sanitize(budget),
+      message: sanitize(message),
+      fileAttached: fileAttachment ? sanitize(fileAttachment) : 'None',
+      date: new Date().toISOString()
     };
     
-    // Post data to Node.js / MySQL backend
     fetch('/api/leads', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(inquiry)
     }).then(res => {
-      if(res.ok) setIsSuccess(true);
-    }).catch(err => console.error("Error sending to database:", err));
+      if (res.ok) setIsSuccess(true);
+    }).catch(() => {
+      // Suppress raw console errors to prevent DevTools data leaks
+    }).finally(() => {
+      setIsSubmitting(false);
+    });
     
-    // Post data to Microsoft Excel / Google Sheets Webhook pipeline (if configured)
     const EXCEL_WEBHOOK_URL = import.meta.env.VITE_EXCEL_WEBHOOK_URL || "";
-    if (EXCEL_WEBHOOK_URL) {
+    if (EXCEL_WEBHOOK_URL && EXCEL_WEBHOOK_URL !== '/api/leads') {
+      if (window.location.protocol === 'https:' && EXCEL_WEBHOOK_URL.startsWith('http://')) {
+        return; // Block mixed content HTTP request
+      }
       fetch(EXCEL_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inquiry)
-      }).catch(err => console.error("Error sending to Excel database:", err));
+      }).catch(() => {});
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFileAttachment(e.target.files[0].name);
+      const fileName = e.target.files[0].name;
+      setFileAttachment(sanitize(fileName));
     }
   };
 
@@ -89,8 +101,6 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                   </p>
                 </div>
 
-                
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
@@ -99,6 +109,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                     <input
                       type="text"
                       required
+                      maxLength={100}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Jane Doe"
@@ -113,6 +124,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                     <input
                       type="email"
                       required
+                      maxLength={150}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="jane@company.com"
@@ -128,6 +140,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                     </label>
                     <input
                       type="tel"
+                      maxLength={30}
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 99999 99999"
@@ -177,6 +190,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                   <textarea
                     rows={4}
                     required
+                    maxLength={2000}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Tell us details about what you want to construct, third-party services, and targets..."
@@ -213,7 +227,8 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
 
                 <button
                   type="submit"
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-md shadow-indigo-600/10 cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold text-xs py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-md shadow-indigo-600/10 cursor-pointer"
                 >
                   <Send size={14} />
                   <span>{t('contact.form.submit')}</span>
@@ -273,7 +288,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
               </div>
             </div>
 
-            {/* Stylized CSS Google Map block */}
+            {/* Stylized CSS Map block */}
             <div className="p-6 bg-slate-900 border border-slate-850 dark:bg-slate-950 dark:border-slate-900 rounded-3xl text-left font-mono text-slate-400 relative overflow-hidden h-44">
               <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#312e81_1px,transparent_1px)] [background-size:16px_16px]"></div>
               

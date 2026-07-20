@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { useDevToolsGuard } from './hooks/useDevToolsGuard';
 import { ParallaxBackground } from './components/ParallaxBackground';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -21,6 +22,7 @@ import { BookMeetingModal } from './components/BookMeetingModal';
 import { ShieldCheck, Cloud, Cpu, Lock, Globe } from 'lucide-react';
 
 const MainApp: React.FC = () => {
+  useDevToolsGuard();
   const { t } = useLanguage();
   const revealRef = useScrollReveal();
   

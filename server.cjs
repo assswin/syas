@@ -156,7 +156,8 @@ app.get('/api/bookings', async (req, res) => {
 // ═══════════════════════════════════════════
 // GET /api/status - Check database connection status
 // ═══════════════════════════════════════════
-app.get('/api/status', (req, res) => {
+app.get('/api/status', async (req, res) => {
+  await connectDB();
   const states = ['Disconnected', 'Connected', 'Connecting', 'Disconnecting'];
   const dbState = mongoose.connection ? states[mongoose.connection.readyState] || 'Unknown' : 'Disconnected';
 

@@ -59,11 +59,7 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
                   <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center neu-raised">
                     {getIcon(service.id)}
                   </div>
-                  {service.startingPrice && (
-                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-450 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 px-3 py-1 rounded-full flex items-center">
-                      {t('services.startingFrom')} {service.startingPrice}
-                    </span>
-                  )}
+                  
                 </div>
 
                 <h3 className="text-base font-extrabold text-slate-850 dark:text-white">

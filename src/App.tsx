@@ -8,7 +8,6 @@ import { Hero } from './components/Hero';
 import { Services } from './components/Services';
 import { Process } from './components/Process';
 import { Portfolio } from './components/Portfolio';
-import { Pricing } from './components/Pricing';
 import { TeamFAQ } from './components/TeamFAQ';
 import { Blog } from './components/Blog';
 import { Contact } from './components/Contact';
@@ -30,17 +29,10 @@ const MainApp: React.FC = () => {
   const [isMeetingOpen, setIsMeetingOpen] = useState(false);
   
   // Lead routing states
-  const [selectedPlan, setSelectedPlan] = useState<string | undefined>(undefined);
+  //const [selectedPlan, setSelectedPlan] = useState<string | undefined>(undefined);
   const [currentSection, setCurrentSection] = useState('home');
 
-  // Plan selection action
-  const handleSelectPlan = (planName: string) => {
-    setSelectedPlan(planName);
-    const contactEl = document.getElementById('contact');
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  
 
   // Estimator inquiring with specific service pre-selection
   const handleInquireService = (_serviceId: string) => {
@@ -50,7 +42,7 @@ const MainApp: React.FC = () => {
   // Simple scrollspy to track active header section
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'services', 'portfolio', 'about', 'pricing', 'blog', 'contact'];
+      const sections = ['home', 'services', 'portfolio', 'about', 'blog', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -148,11 +140,7 @@ const MainApp: React.FC = () => {
       {/* Portfolio Projects Grid */}
       <Portfolio />
 
-      {/* Pricing Cards */}
-      <Pricing 
-        onSelectPlan={handleSelectPlan}
-        onOpenEstimator={() => setIsEstimatorOpen(true)}
-      />
+      
 
       {/* About & FAQs */}
       <TeamFAQ />
@@ -162,7 +150,7 @@ const MainApp: React.FC = () => {
 
       {/* Contact Form */}
       <Contact 
-        selectedPlanName={selectedPlan}
+        
         onOpenMeeting={() => setIsMeetingOpen(true)}
       />
 

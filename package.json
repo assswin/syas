@@ -15,8 +15,8 @@
     "express": "^5.2.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.23.0",
-    "mysql2": "^3.22.5",
-    "pg": "^8.22.0",
+    "mongodb": "^7.5.0",
+    "mongoose": "^8.9.5",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },

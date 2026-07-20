@@ -82,8 +82,8 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
           {/* Left Form (Col Span 7) */}
           <div className="lg:col-span-7 glass-card p-6 md:p-8 rounded-3xl">
             {isSuccess ? (
-              <div className="py-20 text-center flex flex-col items-center justify-center space-y-4 animate-fade-in">
-                <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-2 animate-bounce">
+              <div className="py-20 text-center flex flex-col items-center justify-center space-y-4">
+                <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-2">
                   <CheckCircle size={36} />
                 </div>
                 <h3 className="text-xl font-bold text-slate-850 dark:text-white">
@@ -205,7 +205,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                   </label>
                   
                   <div className="flex items-center gap-3">
-                    <label className="flex items-center gap-1.5 px-4 py-2.5 border border-slate-250 dark:border-slate-800 text-slate-655 dark:text-slate-350 bg-white dark:bg-slate-800 rounded-xl text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer">
+                    <label className="flex items-center gap-1.5 px-4 py-2.5 border border-slate-250 dark:border-slate-800 text-slate-655 dark:text-slate-350 bg-white dark:bg-slate-800 rounded-xl text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer">
                       <Upload size={14} />
                       Choose file
                       <input 
@@ -228,7 +228,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold text-xs py-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-md shadow-indigo-600/10 cursor-pointer"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold text-xs py-4 rounded-2xl flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer"
                 >
                   <Send size={14} />
                   <span>{t('contact.form.submit')}</span>
@@ -250,7 +250,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
               <div className="space-y-4">
                 <a 
                   href={`mailto:${t('contact.info.email')}`}
-                  className="flex items-center gap-3.5 p-4 bg-slate-50 dark:bg-slate-850/50 border border-slate-150 dark:border-slate-800 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-205"
+                  className="flex items-center gap-3.5 p-4 bg-slate-50 dark:bg-slate-850/50 border border-slate-150 dark:border-slate-800 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800 transition-colors duration-200 text-slate-700 dark:text-slate-205"
                 >
                   <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 text-indigo-650 dark:text-indigo-400 flex items-center justify-center shadow-sm">
                     <Mail size={18} />
@@ -263,7 +263,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
 
                 <a 
                   href={`tel:${t('contact.info.phone')}`}
-                  className="flex items-center gap-3.5 p-4 bg-slate-50 dark:bg-slate-850/50 border border-slate-150 dark:border-slate-800 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-205"
+                  className="flex items-center gap-3.5 p-4 bg-slate-50 dark:bg-slate-850/50 border border-slate-150 dark:border-slate-800 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800 transition-colors duration-200 text-slate-700 dark:text-slate-205"
                 >
                   <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 text-indigo-650 dark:text-indigo-400 flex items-center justify-center shadow-sm">
                     <Phone size={18} />
@@ -304,7 +304,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                 <button
                   type="button"
                   onClick={onOpenMeeting}
-                  className="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-sans font-bold px-4 py-2 rounded-xl text-[10px] block w-fit border border-indigo-500/20 transition-all"
+                  className="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-sans font-bold px-4 py-2 rounded-xl text-[10px] block w-fit border border-indigo-500/20 transition-colors duration-200"
                 >
                   Schedule in-office meeting
                 </button>

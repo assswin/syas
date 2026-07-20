@@ -76,9 +76,9 @@ export const TeamFAQ: React.FC = () => {
               {values.map((val, idx) => (
                 <div 
                   key={idx} 
-                  className="p-5 bg-slate-50 dark:bg-slate-850 border border-slate-150/70 dark:border-slate-800/80 rounded-2xl hover:shadow-lg transition-all"
+                  className="p-5 bg-slate-50 dark:bg-slate-850 border border-slate-150/70 dark:border-slate-800/80 rounded-2xl"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center shadow-md shadow-indigo-500/5 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center shadow-sm shadow-slate-700/10 mb-4">
                     {val.icon}
                   </div>
                   <h3 className="text-xs font-extrabold text-slate-850 dark:text-white">
@@ -115,7 +115,7 @@ export const TeamFAQ: React.FC = () => {
               return (
                 <div 
                   key={index}
-                  className="glass-card rounded-2xl overflow-hidden transition-all duration-300"
+                  className="glass-card rounded-2xl overflow-hidden"
                 >
                   <button
                     onClick={() => toggleFaq(index)}
@@ -124,12 +124,12 @@ export const TeamFAQ: React.FC = () => {
                     <span className="text-xs font-bold">{faq.q}</span>
                     <ChevronDown 
                       size={16} 
-                      className={`text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
+                      className={`text-slate-400 transition-transform duration-200 ease-out ${isOpen ? 'rotate-180' : ''}`} 
                     />
                   </button>
 
                   {isOpen && (
-                    <div className="p-4 pt-0 text-xs text-slate-550 dark:text-slate-350 leading-relaxed border-t border-slate-200/30 dark:border-slate-700/30 bg-white/20 dark:bg-slate-900/20 animate-fade-in">
+                    <div className="p-4 pt-0 text-xs text-slate-550 dark:text-slate-350 leading-relaxed border-t border-slate-200/30 dark:border-slate-700/30 bg-white/20 dark:bg-slate-900/20">
                       <p className="mt-4">{faq.a}</p>
                     </div>
                   )}

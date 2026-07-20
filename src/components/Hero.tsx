@@ -52,21 +52,15 @@ export const Hero: React.FC<HeroProps> = ({
 
   return (
     <section id="home" className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center pt-8 pb-16 overflow-hidden gradient-overlay font-sans">
-      {/* Animated mesh gradient background */}
-      <div className="mesh-gradient"></div>
-      {/* Background radial glowing gradients */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-400 rounded-full blur-3xl dark:bg-indigo-900/30"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-400 rounded-full blur-3xl dark:bg-blue-900/20"></div>
-      </div>
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_top_right,rgba(79,70,229,0.08),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(15,23,42,0.05),transparent_35%)]"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column Text details */}
-          <div className="lg:col-span-7 space-y-6 text-left animate-fade-in-up">
+          <div className="lg:col-span-7 space-y-6 text-left">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-150 dark:border-indigo-900/40 rounded-full text-xs font-bold text-indigo-700 dark:text-indigo-400">
-              <span className="w-1.5 h-1.5 bg-indigo-600 dark:bg-indigo-400 rounded-full animate-ping"></span>
+              <span className="w-1.5 h-1.5 bg-indigo-600 dark:bg-indigo-400 rounded-full"></span>
               {t('hero.badge')}
             </span>
 
@@ -82,7 +76,7 @@ export const Hero: React.FC<HeroProps> = ({
             <div className="flex flex-col sm:flex-row gap-3 pt-3">
               <button
                 onClick={onOpenEstimator}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/15 hover:shadow-indigo-600/30 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer pulse-glow"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               >
                 <span>{t('hero.getQuote')}</span>
                 <ArrowRight size={14} />
@@ -90,7 +84,7 @@ export const Hero: React.FC<HeroProps> = ({
 
               <button
                 onClick={onOpenMeeting}
-                className="border border-slate-250 dark:border-slate-800 text-slate-700 dark:text-slate-205 hover:bg-slate-100 dark:hover:bg-slate-850 font-semibold text-xs px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                className="border border-slate-250 dark:border-slate-800 text-slate-700 dark:text-slate-205 hover:bg-slate-100 dark:hover:bg-slate-850 font-semibold text-xs px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 transition-colors duration-200"
               >
                 <Calendar size={14} className="text-indigo-600 dark:text-indigo-400" />
                 <span>{t('hero.bookMeeting')}</span>
@@ -117,7 +111,7 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Right Column visual illustration panel (CSS Mockup dashboard) */}
           <div className="lg:col-span-5 relative w-full flex justify-center">
             {/* Visual element frame */}
-            <div className="w-full max-w-md bg-slate-900 border border-slate-850 dark:bg-slate-950 dark:border-slate-900 rounded-3xl p-4 shadow-2xl relative animate-float gradient-border-spin">
+            <div className="w-full max-w-md glass-card rounded-3xl p-4">
               
               {/* Window controls */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-850">
@@ -154,7 +148,7 @@ export const Hero: React.FC<HeroProps> = ({
                   <p className="text-indigo-400">✓ verifying lighthouse core web vitals...</p>
                   <p className="text-emerald-400">✓ Page Speed: 97/100 | Accessibility: 100/100</p>
                   <div className="flex items-center gap-1.5 text-slate-500 mt-1">
-                    <Activity size={10} className="text-red-400 animate-pulse" />
+                    <Activity size={10} className="text-red-400" />
                     <span>Server Status: Online - latency: 14ms</span>
                   </div>
                 </div>

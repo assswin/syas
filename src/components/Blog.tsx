@@ -18,7 +18,7 @@ export const Blog: React.FC = () => {
         
         {selectedPost ? (
           /* Detailed Single Post View */
-          <div className="max-w-3xl mx-auto space-y-6 animate-fade-in">
+          <div className="max-w-3xl mx-auto space-y-6">
             <button
               onClick={() => setSelectedPost(null)}
               className="flex items-center gap-1.5 text-xs font-bold text-indigo-650 dark:text-indigo-400 hover:text-indigo-750 transition-colors mb-4"
@@ -76,7 +76,7 @@ export const Blog: React.FC = () => {
                 <div
                   key={post.id}
                   onClick={() => setSelectedPost(post)}
-                  className={`reveal stagger-${idx + 1} flex flex-col justify-between p-6 glass-card premium-card rounded-3xl cursor-pointer group`}
+                  className={`flex flex-col justify-between p-6 glass-card premium-card rounded-3xl cursor-pointer group`}
                 >
                   <div className="space-y-4">
                     <div className="flex justify-between items-center text-[9px] text-slate-400 font-bold uppercase tracking-wider">
@@ -95,7 +95,7 @@ export const Blog: React.FC = () => {
 
                   <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] font-bold text-indigo-650 dark:text-indigo-400 group hover:text-indigo-755 transition-colors">
                     <span>{t('blog.readArticle')}</span>
-                    <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform duration-200 ease-out" />
                   </div>
                 </div>
               ))}

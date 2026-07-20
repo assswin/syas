@@ -78,9 +78,9 @@ export const Process: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => setActiveStep(idx)}
-                  className={`w-full p-4 rounded-2xl transition-all text-left flex items-center space-x-4 ${
+                  className={`w-full p-4 rounded-2xl transition-colors duration-200 text-left flex items-center space-x-4 ${
                     isActive 
-                      ? 'glass-card border-indigo-400/50 bg-indigo-50/60 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 shadow-md ring-1 ring-indigo-500/20 pulse-glow'
+                      ? 'glass-card border border-slate-200/40 bg-slate-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 ring-1 ring-indigo-200/70'
                       : 'border border-slate-200/50 bg-white/40 hover:bg-white/70 dark:border-slate-700/30 dark:bg-slate-800/40 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-350'
                   }`}
                 >
@@ -105,8 +105,8 @@ export const Process: React.FC = () => {
           </div>
 
           {/* Stepper Detail Explanations (Col Span 7) */}
-          <div className="lg:col-span-7 glass-card premium-card rounded-3xl p-6 md:p-8 text-left h-full min-h-[380px] flex flex-col justify-between animate-fade-in relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-400/10 rounded-full blur-[80px] -z-10 translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+          <div className="lg:col-span-7 glass-card premium-card rounded-3xl p-6 md:p-8 text-left h-full min-h-[380px] flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-slate-900/8 rounded-full blur-[40px] -z-10 translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
             {steps[activeStep] && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                 {/* Left contents */}
@@ -145,7 +145,7 @@ export const Process: React.FC = () => {
                   <img 
                     src={phaseImages[activeStep]} 
                     alt={steps[activeStep].title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-200"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent"></div>
                 </div>

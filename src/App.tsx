@@ -3,7 +3,6 @@ import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useDevToolsGuard } from './hooks/useDevToolsGuard';
-import { ParallaxBackground } from './components/ParallaxBackground';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
@@ -68,8 +67,6 @@ const MainApp: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 relative">
-      <ParallaxBackground />
-      
       {/* Navigation Header */}
       <Header 
         onOpenEstimator={() => setIsEstimatorOpen(true)}

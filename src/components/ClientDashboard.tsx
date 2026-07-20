@@ -106,8 +106,8 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({ isOpen, onClos
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in font-sans">
-      <div className="relative w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm font-sans">
+      <div className="relative w-full max-w-4xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden max-h-[90vh] flex flex-col">
         
         {/* Header */}
         <div className="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
@@ -160,7 +160,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({ isOpen, onClos
                           m.id < activeMilestone 
                             ? 'border-emerald-500 bg-emerald-500'
                             : m.id === activeMilestone
-                            ? 'border-indigo-600 animate-pulse'
+                            ? 'border-indigo-600'
                             : 'border-slate-300 dark:border-slate-700'
                         }`}></div>
 
@@ -194,7 +194,7 @@ export const ClientDashboard: React.FC<ClientDashboardProps> = ({ isOpen, onClos
                       {t('dashboard.filesTitle')}
                     </h4>
                     
-                    <label className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-[10px] font-semibold hover:bg-indigo-700 transition-all cursor-pointer">
+                    <label className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-[10px] font-semibold hover:bg-indigo-700 transition-colors duration-200 cursor-pointer">
                       <Upload size={12} />
                       {t('contact.form.upload')}
                       <input 

@@ -23,7 +23,7 @@ export const LiveChat: React.FC = () => {
     <div className="fixed bottom-6 right-6 z-50 font-sans">
       {/* Chat window */}
       {isOpen && (
-        <div className="mb-4 w-80 rounded-2xl bg-white shadow-2xl border border-slate-100 overflow-hidden dark:bg-slate-900 dark:border-slate-800 animate-fade-in-up">
+        <div className="mb-4 w-80 rounded-2xl bg-white shadow-sm border border-slate-100 overflow-hidden dark:bg-slate-900 dark:border-slate-800">
           {/* Header */}
           <div className="bg-emerald-600 px-4 py-3 flex items-center justify-between text-white">
             <div className="flex items-center space-x-2">
@@ -64,7 +64,7 @@ export const LiveChat: React.FC = () => {
             />
             <button
               type="submit"
-              className="bg-emerald-600 text-white p-2 rounded-xl hover:bg-emerald-700 transition-all flex items-center justify-center"
+              className="bg-emerald-600 text-white p-2 rounded-xl hover:bg-emerald-700 transition-colors duration-200 flex items-center justify-center"
             >
               <Send size={14} />
             </button>
@@ -75,13 +75,13 @@ export const LiveChat: React.FC = () => {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-xl hover:shadow-emerald-600/20 hover:scale-105 transition-all duration-300 relative group"
+        className="w-14 h-14 bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-sm transition-colors duration-200 relative group"
         aria-label="Contact support on WhatsApp"
       >
-        <span className="absolute -top-10 scale-0 group-hover:scale-100 bg-slate-900 text-white text-xs px-2 py-1 rounded transition-all whitespace-nowrap dark:bg-slate-100 dark:text-slate-900">
+        <span className="absolute -top-10 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 bg-slate-900 text-white text-xs px-2 py-1 rounded transition-opacity transition-transform duration-200 whitespace-nowrap dark:bg-slate-100 dark:text-slate-900">
           {t('contact.info.whatsapp')}
         </span>
-        <MessageSquare size={24} className={isOpen ? 'hidden' : 'block animate-pulse'} />
+        <MessageSquare size={24} className={isOpen ? 'hidden' : 'block'} />
         <X size={24} className={isOpen ? 'block' : 'hidden'} />
       </button>
     </div>

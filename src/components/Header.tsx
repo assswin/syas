@@ -39,12 +39,12 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full glass border-b border-slate-100 dark:border-slate-800 transition-all font-sans">
+    <header className="sticky top-0 z-40 w-full glass border-b border-slate-100 dark:border-slate-800 transition-colors duration-200 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Logo */}
         <div className="flex items-center space-x-2.5 cursor-pointer" onClick={() => handleNavClick('home')}>
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-400 flex items-center justify-center text-white font-black text-lg shadow-md shadow-indigo-500/10">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-400 flex items-center justify-center text-white font-black text-lg shadow-sm shadow-slate-900/10">
             A
           </div>
           <span className="font-extrabold text-sm tracking-tight text-slate-850 dark:text-white">
@@ -86,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({
               <Globe size={16} />
               <span>{language}</span>
             </button>
-            <div className="absolute right-0 top-full mt-1 w-24 bg-white dark:bg-slate-850 border border-slate-100 dark:border-slate-800 rounded-xl shadow-lg opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-all duration-200">
+            <div className="absolute right-0 top-full mt-1 w-24 bg-white dark:bg-slate-850 border border-slate-100 dark:border-slate-800 rounded-xl shadow-sm opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-opacity transition-transform duration-200 ease-out">
               <button 
                 onClick={() => setLanguage('en')}
                 className="w-full text-left px-3.5 py-2 text-xs text-slate-700 dark:text-slate-205 hover:bg-slate-50 dark:hover:bg-slate-800 first:rounded-t-xl"
@@ -107,7 +107,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Get Quote Trigger */}
           <button 
             onClick={onOpenEstimator}
-            className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer pulse-glow"
+            className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-xs font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
           >
             <span>{t('nav.getQuote')}</span>
             <ArrowUpRight size={13} />
@@ -127,7 +127,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Hamburger trigger */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-slate-550 dark:text-slate-350 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all"
+            className="p-2 text-slate-550 dark:text-slate-350 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors duration-200"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl space-y-4 animate-fade-in-up">
+        <div className="lg:hidden p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm space-y-4">
           <nav className="flex flex-col space-y-3">
             {menuItems.map((item) => (
               <button
@@ -168,7 +168,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Quote Estimator switch */}
             <button 
               onClick={() => { setMobileMenuOpen(false); onOpenEstimator(); }}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white w-full text-center py-2.5 rounded-xl text-xs font-semibold transition-all shadow-md"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white w-full text-center py-2.5 rounded-xl text-xs font-semibold transition-colors duration-200"
             >
               {t('nav.getQuote')}
             </button>

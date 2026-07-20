@@ -51,7 +51,7 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
             return (
               <div
                 key={service.id}
-                className={`p-6 glass-card rounded-3xl premium-card text-left transition-all duration-300 ${
+                className={`p-6 glass-card rounded-3xl premium-card text-left transition-colors duration-200 ${
                   isExpanded ? 'ring-2 ring-indigo-600 dark:ring-indigo-500 scale-[1.01]' : ''
                 }`}
               >
@@ -76,12 +76,12 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
                   className="mt-4 flex items-center gap-1.5 text-xs font-bold text-indigo-650 dark:text-indigo-400 hover:text-indigo-750 transition-colors"
                 >
                   <span>{isExpanded ? "Hide details" : t('services.learnMore')}</span>
-                  <ArrowRight size={13} className={`transition-transform duration-300 ${isExpanded ? 'rotate-90' : ''}`} />
+                  <ArrowRight size={13} className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
                 </button>
 
                 {/* Expanded Sections: features, benefits, tech, pricing */}
                 {isExpanded && (
-                  <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4 animate-fade-in">
+                  <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
                     
                     {/* Features */}
                     <div>
@@ -133,7 +133,7 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
                     {/* Action button */}
                     <button
                       onClick={() => onInquire(service.id)}
-                      className="w-full bg-indigo-650 hover:bg-indigo-700 text-white py-3.5 rounded-2xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-md shadow-indigo-600/10 cursor-pointer"
+                      className="w-full bg-indigo-650 hover:bg-indigo-700 text-white py-3.5 rounded-2xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors duration-200 cursor-pointer"
                     >
                       <span>{t('services.ctaButton')}</span>
                       <ArrowRight size={13} />

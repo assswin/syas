@@ -104,8 +104,8 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-lg glass-modal border border-white/20 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/55 backdrop-blur-sm">
+      <div className="relative w-full max-w-lg glass-modal border border-white/20 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden max-h-[90vh] overflow-y-auto font-sans">
         
         {/* Close Button */}
         <button 
@@ -116,8 +116,8 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
         </button>
 
         {isSuccess ? (
-          <div className="p-8 py-16 text-center flex flex-col items-center justify-center space-y-4 animate-fade-in">
-            <div className="w-16 h-16 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center mb-2 animate-bounce">
+          <div className="p-8 py-16 text-center flex flex-col items-center justify-center space-y-4">
+            <div className="w-16 h-16 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center mb-2">
               <CheckCircle size={36} />
             </div>
             <h3 className="text-xl font-bold text-slate-850 dark:text-white">
@@ -147,7 +147,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                     key={date.value}
                     type="button"
                     onClick={() => setSelectedDate(date.value)}
-                    className={`py-2 px-1 text-xs font-medium rounded-xl border transition-all text-center ${
+                    className={`py-2 px-1 text-xs font-medium rounded-xl border transition-colors duration-200 text-center ${
                       selectedDate === date.value
                         ? 'border-indigo-600 bg-indigo-50 text-indigo-700 dark:border-indigo-500 dark:bg-indigo-950/40 dark:text-indigo-300'
                         : 'border-slate-200 hover:border-slate-350 dark:border-slate-800 dark:hover:border-slate-700 text-slate-650 dark:text-slate-300'
@@ -171,7 +171,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                       key={time}
                       type="button"
                       onClick={() => setSelectedTime(time)}
-                      className={`py-2 px-3 text-xs font-medium rounded-xl border transition-all flex items-center gap-1.5 ${
+                      className={`py-2 px-3 text-xs font-medium rounded-xl border transition-colors duration-200 flex items-center gap-1.5 ${
                         selectedTime === time
                           ? 'border-indigo-600 bg-indigo-50 text-indigo-700 dark:border-indigo-500 dark:bg-indigo-950/40 dark:text-indigo-300'
                           : 'border-slate-200 hover:border-slate-350 dark:border-slate-800 dark:hover:border-slate-700 text-slate-650 dark:text-slate-300'
@@ -245,7 +245,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
             <button
               type="submit"
               disabled={!selectedDate || !selectedTime || !name || !email || !phone || isSubmitting}
-              className="w-full bg-indigo-600 text-white font-medium text-sm py-3.5 rounded-2xl hover:bg-indigo-750 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed dark:disabled:bg-slate-800 dark:disabled:text-slate-600 transition-all duration-300"
+              className="w-full bg-indigo-600 text-white font-medium text-sm py-3.5 rounded-2xl hover:bg-indigo-750 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed dark:disabled:bg-slate-800 dark:disabled:text-slate-600 transition-colors duration-200"
             >
               {t('meeting.confirm')}
             </button>

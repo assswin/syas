@@ -79,8 +79,8 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-2xl glass-modal border border-white/20 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/55 backdrop-blur-sm">
+      <div className="relative w-full max-w-2xl glass-modal border border-white/20 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden max-h-[90vh] overflow-y-auto font-sans">
         
         {/* Close Button */}
         <button 
@@ -92,7 +92,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
 
         {isSuccess ? (
           <div className="p-8 text-center flex flex-col items-center justify-center space-y-4">
-            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-2 animate-bounce">
+            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-2">
               <CheckCircle2 size={36} />
             </div>
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -110,7 +110,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                 setDetails('');
                 onClose();
               }}
-              className="mt-6 w-full max-w-xs bg-indigo-600 text-white font-medium text-sm py-3 rounded-2xl hover:bg-indigo-700 transition-all duration-300"
+              className="mt-6 w-full max-w-xs bg-indigo-600 text-white font-medium text-sm py-3 rounded-2xl hover:bg-indigo-700 transition-colors duration-200"
             >
               Done
             </button>
@@ -131,7 +131,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                 {/* Progress bar */}
                 <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-5 overflow-hidden">
                   <div 
-                    className="bg-indigo-600 h-full transition-all duration-300"
+                    className="bg-indigo-600 h-full progress-fill"
                     style={{ width: `${(step / 3) * 100}%` }}
                   ></div>
                 </div>
@@ -166,7 +166,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                         {['simple', 'medium', 'complex'].map((level) => (
                           <label 
                             key={level}
-                            className={`flex items-start p-3 rounded-xl border cursor-pointer transition-all ${
+                            className={`flex items-start p-3 rounded-xl border cursor-pointer transition-colors duration-200 ${
                               complexity === level 
                                 ? 'border-indigo-600 bg-indigo-50/45 dark:border-indigo-550 dark:bg-indigo-950/20'
                                 : 'border-slate-150 hover:border-slate-250 dark:border-slate-800 dark:hover:border-slate-700'
@@ -205,7 +205,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                             key={item}
                             type="button"
                             onClick={() => setPlatform(item)}
-                            className={`py-3 px-2 text-xs font-bold rounded-xl border transition-all text-center ${
+                            className={`py-3 px-2 text-xs font-bold rounded-xl border transition-colors duration-200 text-center ${
                               platform === item
                                 ? 'border-indigo-600 bg-indigo-50 text-indigo-700 dark:border-indigo-500 dark:bg-indigo-950/40 dark:text-indigo-300'
                                 : 'border-slate-200 dark:border-slate-800 dark:text-slate-350 hover:border-slate-300 dark:hover:border-slate-700'
@@ -225,7 +225,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                         {['fast', 'standard', 'flexible'].map((time) => (
                           <label 
                             key={time}
-                            className={`flex items-center p-3 rounded-xl border cursor-pointer transition-all ${
+                            className={`flex items-center p-3 rounded-xl border cursor-pointer transition-colors duration-200 ${
                               timeline === time 
                                 ? 'border-indigo-600 bg-indigo-50/45 dark:border-indigo-550 dark:bg-indigo-950/20'
                                 : 'border-slate-150 hover:border-slate-250 dark:border-slate-800 dark:hover:border-slate-700'
@@ -319,7 +319,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-all"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors duration-200"
                   >
                     Next <ChevronRight size={14} />
                   </button>
@@ -328,7 +328,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                     type="button"
                     onClick={handleSubmit}
                     disabled={!name || !email}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-all disabled:bg-slate-100 disabled:text-slate-400 dark:disabled:bg-slate-800 dark:disabled:text-slate-655 cursor-pointer"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors duration-200 disabled:bg-slate-100 disabled:text-slate-400 dark:disabled:bg-slate-800 dark:disabled:text-slate-655 cursor-pointer"
                   >
                     {t('estimator.leadForm.submit')} <ArrowRight size={14} />
                   </button>

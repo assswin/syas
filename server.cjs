@@ -8,24 +8,27 @@ app.use(cors());
 app.use(express.json());
 
 // ─── MongoDB Connection Setup ───
-let isConnected = false;
+let cachedPromise = null;
 
 async function connectDB() {
-  if (isConnected && mongoose.connection.readyState === 1) {
-    return;
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
   }
-  
-  const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/syay_leads';
 
-  try {
+  if (!cachedPromise) {
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/syay_leads';
     console.log('🔄 Connecting to MongoDB...');
-    await mongoose.connect(mongoURI);
-    isConnected = true;
-    console.log('✅ Connected to MongoDB successfully.');
-  } catch (err) {
-    console.error('❌ MongoDB Connection Error:', err.message);
-    isConnected = false;
+    cachedPromise = mongoose.connect(mongoURI).then((m) => {
+      console.log('✅ Connected to MongoDB successfully.');
+      return m;
+    }).catch((err) => {
+      cachedPromise = null;
+      console.error('❌ MongoDB Connection Error:', err.message);
+      throw err;
+    });
   }
+
+  return await cachedPromise;
 }
 
 // Ensure database connection middleware

@@ -130,7 +130,7 @@ export const Hero: React.FC<HeroProps> = ({
               {/* Mock Dashboard body */}
               <div className="space-y-3.5 text-left text-xs font-mono">
                 {/* Active pipeline tracker header */}
-                <div className="p-3 rounded-2xl bg-slate-850 border border-slate-800 flex items-center justify-between">
+                <div className="p-3 rounded-2xl bg-[rgba(11,15,22,0.95)] border border-white/10 flex items-center justify-between">
                   <div>
                     <span className="text-[9px] text-slate-500 block uppercase font-bold font-sans">Active Project</span>
                     <span className="text-slate-200 text-xs font-bold font-sans truncate block max-w-[160px]">E-Commerce Backend</span>
@@ -142,7 +142,7 @@ export const Hero: React.FC<HeroProps> = ({
                 </div>
 
                 {/* Simulated build logs */}
-                <div className="space-y-1.5 p-3 rounded-2xl bg-slate-950 border border-slate-900 text-[10px] text-slate-350">
+                <div className="space-y-1.5 p-3 rounded-2xl bg-[rgba(4,5,7,0.95)] border border-white/10 text-[10px] text-slate-350">
                   <p className="text-slate-500">&gt; npm run build:production</p>
                   <p className="text-indigo-400">✓ bundling chunks: client-views, state-provider</p>
                   <p className="text-indigo-400">✓ verifying lighthouse core web vitals...</p>
@@ -154,7 +154,7 @@ export const Hero: React.FC<HeroProps> = ({
                 </div>
 
                 {/* Dashboard milestones visual */}
-                <div className="p-3 rounded-2xl bg-slate-850 border border-slate-800 space-y-2">
+                <div className="p-3 rounded-2xl bg-[rgba(11,15,22,0.95)] border border-white/10 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[9px] font-bold text-slate-400 uppercase font-sans">Sprint Tasks</span>
                     <span 

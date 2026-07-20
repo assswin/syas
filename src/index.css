@@ -5,16 +5,66 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+    --bg-primary: #f7f8ff;
+    --bg-secondary: rgba(255, 255, 255, 0.7);
+    --bg-elevated: rgba(255, 255, 255, 0.82);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --border-color: rgba(15, 23, 42, 0.08);
+    --shadow-color: rgba(15, 23, 42, 0.12);
+  }
+
+  html,
   body {
-    @apply font-sans bg-slate-50 text-slate-900 antialiased overflow-x-hidden;
+    min-height: 100%;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  body {
+    @apply font-sans antialiased overflow-x-hidden;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(129, 140, 248, 0.18), transparent 24%),
+      radial-gradient(circle at 80% 0%, rgba(244, 114, 182, 0.16), transparent 24%),
+      linear-gradient(135deg, #f8faff 0%, #eef2ff 55%, #f8fafc 100%);
+    transition: background-color 300ms ease, color 300ms ease;
   }
 
   body.dark {
-    @apply bg-slate-950 text-slate-100;
+    color-scheme: dark;
+    --bg-primary: #040507;
+    --bg-secondary: rgba(10, 12, 16, 0.74);
+    --bg-elevated: rgba(12, 15, 20, 0.86);
+    --surface-base: #040507;
+    --surface-raised: #0b0f16;
+    --surface-elevated: #121722;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(99, 102, 241, 0.16), transparent 22%),
+      radial-gradient(circle at 80% 0%, rgba(236, 72, 153, 0.12), transparent 24%),
+      var(--surface-base);
   }
 
   * {
     scroll-behavior: smooth;
+  }
+
+  body {
+    transition: background-color 180ms ease, color 180ms ease, background-image 180ms ease;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  .theme-transition {
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease, opacity 180ms ease;
   }
 }
 
@@ -24,53 +74,54 @@
 
 /* Standard header glass */
 .glass {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
+  background: transparent;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: none;
+  box-shadow: none;
 }
 .dark .glass {
-  background: rgba(15, 23, 42, 0.80);
-  border: 1px solid rgba(148, 163, 184, 0.10);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 /* Glass card — for service, pricing, why-choose-us cards */
 .glass-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.035);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 .dark .glass-card {
-  background: rgba(15, 23, 42, 0.86);
-  border: 1px solid rgba(148, 163, 184, 0.10);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  background: rgba(10, 10, 14, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 /* Glass modal — for overlay modals (cost estimator, booking) */
 .glass-modal {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 .dark .glass-modal {
-  background: rgba(15, 23, 42, 0.88);
-  border: 1px solid rgba(148, 163, 184, 0.10);
+  background: rgba(8, 8, 12, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 /* Glass pill — for trust banner, stat items */
 .glass-pill {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 .dark .glass-pill {
-  background: rgba(15, 23, 42, 0.78);
-  border: 1px solid rgba(148, 163, 184, 0.10);
+  background: rgba(15, 15, 20, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 /* ============================================

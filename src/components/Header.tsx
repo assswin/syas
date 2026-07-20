@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full glass border-b border-slate-100 dark:border-slate-800 transition-colors duration-200 font-sans">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-2xl font-sans transition-all duration-300 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Logo */}
@@ -58,13 +58,18 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`text-xs font-semibold tracking-wide transition-colors ${
-                currentSection === item.id 
-                  ? 'text-indigo-600 dark:text-indigo-400 font-bold' 
+              className={`relative text-xs font-semibold tracking-wide transition-colors ${
+                currentSection === item.id
+                  ? 'text-indigo-600 dark:text-indigo-400 font-bold'
                   : 'text-slate-550 dark:text-slate-350 hover:text-indigo-600 dark:hover:text-indigo-400'
               }`}
             >
-              {item.label}
+              <span className="relative inline-flex items-center">
+                {item.label}
+                {currentSection === item.id && (
+                  <span className="absolute -bottom-2 left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500" />
+                )}
+              </span>
             </button>
           ))}
         </nav>
@@ -74,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Theme Switcher */}
           <button 
             onClick={toggleTheme}
-            className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="theme-transition p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/80"
             aria-label="Toggle dark mode"
           >
             {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
@@ -86,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
               <Globe size={16} />
               <span>{language}</span>
             </button>
-            <div className="absolute right-0 top-full mt-1 w-24 bg-white dark:bg-slate-850 border border-slate-100 dark:border-slate-800 rounded-xl shadow-sm opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-opacity transition-transform duration-200 ease-out">
+            <div className="absolute right-0 top-full mt-1 w-24 glass-card rounded-xl shadow-[0_12px_30px_rgba(0,0,0,0.16)] opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto transition-opacity transition-transform duration-200 ease-out">
               <button 
                 onClick={() => setLanguage('en')}
                 className="w-full text-left px-3.5 py-2 text-xs text-slate-700 dark:text-slate-205 hover:bg-slate-50 dark:hover:bg-slate-800 first:rounded-t-xl"
@@ -119,7 +124,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Dark Mode toggle for mobile */}
           <button 
             onClick={toggleTheme}
-            className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="theme-transition p-2 rounded-xl text-slate-500 hover:bg-slate-100/80 dark:hover:bg-slate-800/80"
           >
             {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
           </button>
@@ -127,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Hamburger trigger */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-slate-550 dark:text-slate-350 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors duration-200"
+            className="theme-transition p-2 text-slate-550 dark:text-slate-350 hover:bg-slate-100/80 dark:hover:bg-slate-800/80 rounded-xl"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -136,7 +141,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm space-y-4">
+        <div className="lg:hidden p-4 border-t border-white/10 glass-card shadow-[0_18px_40px_rgba(0,0,0,0.18)] space-y-4 rounded-b-2xl">
           <nav className="flex flex-col space-y-3">
             {menuItems.map((item) => (
               <button

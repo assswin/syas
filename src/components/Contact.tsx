@@ -73,7 +73,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-white dark:bg-slate-900 transition-colors font-sans text-left relative">
+    <section id="contact" className="py-24 bg-transparent transition-colors font-sans text-left relative">
       <div className="gradient-divider"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         

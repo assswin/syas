@@ -72,7 +72,7 @@ export const Blog: React.FC = () => {
             </div>
 
             <div ref={revealRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {posts.map((post, idx) => (
+              {posts.map((post) => (
                 <div
                   key={post.id}
                   onClick={() => setSelectedPost(post)}

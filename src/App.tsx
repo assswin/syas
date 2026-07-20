@@ -66,7 +66,7 @@ const MainApp: React.FC = () => {
   const whyChooseUsCards = (t('whyChooseUs.cards') as unknown as any[]) || [];
 
   return (
-    <div className="min-h-screen flex flex-col font-sans text-slate-800 dark:text-slate-100 relative">
+    <div className="min-h-screen flex flex-col font-sans text-slate-900 dark:text-slate-100 relative overflow-x-hidden transition-colors duration-300">
       {/* Navigation Header */}
       <Header 
         onOpenEstimator={() => setIsEstimatorOpen(true)}

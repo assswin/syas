@@ -17,9 +17,9 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentSection }) => {
   };
 
   return (
-    <footer className="bg-slate-900 text-slate-400 py-16 font-sans text-left transition-colors relative">
+    <footer className="bg-[rgba(4,5,7,0.95)] text-slate-400 py-16 font-sans text-left transition-colors relative">
       {/* Gradient fade from content to footer */}
-      <div className="absolute -top-16 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-slate-900 pointer-events-none"></div>
+      <div className="absolute -top-16 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-[rgba(4,5,7,0.95)] pointer-events-none"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 border-b border-slate-800 pb-12">

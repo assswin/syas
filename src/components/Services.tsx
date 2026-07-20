@@ -29,7 +29,7 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
   };
 
   return (
-    <section id="services" className="py-24 bg-white dark:bg-slate-900 transition-colors font-sans relative">
+    <section id="services" className="py-24 bg-transparent transition-colors font-sans relative">
       <div className="gradient-divider"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         

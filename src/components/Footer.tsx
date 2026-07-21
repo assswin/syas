@@ -2,18 +2,14 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {
-  setCurrentSection: (sec: string) => void;
+  onNavigate: (sec: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ setCurrentSection }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const { t } = useLanguage();
 
   const handleNavClick = (id: string) => {
-    setCurrentSection(id);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    onNavigate(id);
   };
 
   return (

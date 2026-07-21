@@ -30,15 +30,11 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
   };
 
   return (
-    <section id="services" className="py-24 transition-colors font-sans relative">
-      <div className="gradient-divider"></div>
+    <section id="services" className="pt-6 pb-24 transition-colors font-sans relative sm:pt-8">
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Header Title */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50">
-            Core Capabilities
-          </span>
+        <div className=" max-w-2xl mx-auto mb-16 space-y-3">
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             {t('services.title')}
           </h2>
@@ -64,11 +60,7 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
                     <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 dark:bg-indigo-400/10 border border-indigo-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                       {getIcon(service.id)}
                     </div>
-                    {service.startingPrice && (
-                      <span className="text-[11px] font-extrabold px-3 py-1 bg-white/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 rounded-full text-indigo-600 dark:text-indigo-400">
-                        {service.startingPrice}
-                      </span>
-                    )}
+
                   </div>
 
                   <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">

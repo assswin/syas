@@ -26,15 +26,12 @@ export const Portfolio: React.FC = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-24 transition-colors font-sans relative">
-      <div className="gradient-divider"></div>
+    <section id="portfolio" className="pt-6 pb-24 transition-colors font-sans relative sm:pt-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Title headers */}
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50">
-            Selected Works
-          </span>
+        <div className=" max-w-2xl mx-auto mb-12 space-y-3">
+      
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             {t('portfolio.title')}
           </h2>

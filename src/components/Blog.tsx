@@ -12,8 +12,8 @@ export const Blog: React.FC = () => {
   const posts: BlogItem[] = t('blog.items') as any || [];
 
   return (
-    <section id="blog" className="py-24 transition-colors font-sans text-left relative">
-      <div className="gradient-divider"></div>
+    <section id="blog" className="pt-6 pb-24 transition-colors font-sans text-left relative sm:pt-8">
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {selectedPost ? (
@@ -63,11 +63,8 @@ export const Blog: React.FC = () => {
         ) : (
           /* Grid Feed View */
           <div className="space-y-16">
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50 flex items-center gap-1.5 w-fit mx-auto">
-                <BookOpen size={13} />
-                Engineering Insights
-              </span>
+            <div className=" max-w-2xl mx-auto space-y-3">
+              
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                 {t('blog.title')}
               </h2>

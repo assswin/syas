@@ -16,7 +16,7 @@ export const LiveChat: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
+    <div className="fixed bottom-20 right-6 z-50 font-sans sm:bottom-24">
       {/* Floating Chat Drawer */}
       {isOpen && (
         <div className="mb-4 w-80 glass-modal rounded-3xl shadow-2xl overflow-hidden border border-white/80 dark:border-white/10 animate-fade-in text-left">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sun, Moon, Globe, ArrowUpRight, Shield, Home, LayoutGrid, Image, Info, BookOpen, Mail } from 'lucide-react';
+import { Sun, Moon, Globe, ArrowUpRight, Shield, Home, Briefcase, FolderOpen, Users, Newspaper, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -20,12 +20,12 @@ export const Header: React.FC<HeaderProps> = ({
   const { theme, toggleTheme } = useTheme();
 
   const menuItems = [
-    { id: 'home', label: t('nav.home'), icon: Home },
-    { id: 'services', label: t('nav.services'), icon: LayoutGrid },
-    { id: 'portfolio', label: t('nav.portfolio'), icon: Image },
-    { id: 'about', label: t('nav.about'), icon: Info },
-    { id: 'blog', label: t('nav.blog'), icon: BookOpen },
-    { id: 'contact', label: t('nav.contact'), icon: Mail }
+    { id: 'home',      label: t('nav.home'),      icon: Home },
+    { id: 'services',  label: t('nav.services'),  icon: Briefcase },
+    { id: 'portfolio', label: t('nav.portfolio'), icon: FolderOpen },
+    { id: 'about',     label: t('nav.about'),     icon: Users },
+    { id: 'blog',      label: t('nav.blog'),      icon: Newspaper },
+    { id: 'contact',   label: t('nav.contact'),   icon: MessageCircle }
   ];
 
   const handleNavClick = (id: string) => {

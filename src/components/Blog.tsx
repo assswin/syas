@@ -63,7 +63,7 @@ export const Blog: React.FC = () => {
         ) : (
           /* Grid Feed View */
           <div className="space-y-16">
-            <div className=" max-w-2xl mx-auto space-y-3">
+            <div className="max-w-2xl space-y-3">
               
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                 {t('blog.title')}

@@ -34,7 +34,7 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Title */}
-        <div className=" max-w-2xl mx-auto mb-16 space-y-3">
+        <div className="max-w-2xl mb-16 space-y-3">
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             {t('services.title')}
           </h2>

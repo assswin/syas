@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Filter, Code, BarChart3, AlertCircle, X, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 import type { ProjectItem } from '../data/contentData';
 
 type PortfolioFilter = 'all' | 'websites' | 'mobile' | 'ai' | 'automation' | 'dashboard';
 
 export const Portfolio: React.FC = () => {
   const { t } = useLanguage();
-  const revealRef = useScrollReveal();
   const [activeFilter, setActiveFilter] = useState<PortfolioFilter>('all');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
@@ -38,7 +36,7 @@ export const Portfolio: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Title headers */}
-        <div className=" max-w-2xl mx-auto mb-12 space-y-3">
+        <div className="max-w-2xl mb-12 space-y-3">
       
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             {t('portfolio.title')}
@@ -67,13 +65,13 @@ export const Portfolio: React.FC = () => {
         </div>
 
         {/* Projects Grid */}
-        <div ref={revealRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div key={activeFilter} className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in">
           {filteredProjects.length > 0 ? (
-            filteredProjects.map((project, idx) => (
+            filteredProjects.map((project) => (
               <div
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
-                className={`reveal stagger-${idx + 1} group glass-card rounded-3xl overflow-hidden cursor-pointer flex flex-col sm:flex-row text-left hover:border-indigo-500/40 transition-all duration-300`}
+                className="group glass-card rounded-3xl overflow-hidden cursor-pointer flex flex-col sm:flex-row text-left hover:border-indigo-500/40 transition-all duration-300"
               >
                 {/* Visual Card image */}
                 <div className="sm:w-1/2 relative h-52 sm:h-auto overflow-hidden">

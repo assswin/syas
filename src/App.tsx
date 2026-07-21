@@ -52,6 +52,10 @@ const MainApp: React.FC = () => {
     setCurrentSection(getSectionFromPath(location.pathname));
   }, [location.pathname]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, [location.pathname]);
+
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-transparent font-sans text-slate-900 transition-colors duration-300 dark:text-slate-100">
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Upload, FileText, CheckCircle, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Upload, FileText, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface ContactProps {
@@ -74,7 +74,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
 
   return (
     <section id="contact" className="pt-6 pb-24 transition-colors font-sans text-left relative sm:pt-8">
-      <div className="gradient-divider"></div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -96,10 +96,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50 flex items-center gap-1.5 w-fit">
-                    <MessageSquare size={13} />
-                    Get In Touch
-                  </span>
+                  
                   <h3 className="text-2xl font-black text-slate-900 dark:text-white">
                     {t('contact.title')}
                   </h3>

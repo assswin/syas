@@ -9,12 +9,21 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem('theme');
+const getStoredTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'dark';
+
+  try {
+    const saved = window.localStorage.getItem('theme');
     if (saved === 'dark' || saved === 'light') return saved;
-    return 'dark';
-  });
+  } catch {
+    // Ignore storage access errors and fall back to the default theme.
+  }
+
+  return 'dark';
+};
+
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setTheme] = useState<Theme>(() => getStoredTheme());
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -26,7 +35,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.classList.remove('dark');
       body.classList.remove('dark');
     }
-    localStorage.setItem('theme', theme);
+
+    try {
+      window.localStorage.setItem('theme', theme);
+    } catch {
+      // Ignore storage write failures in restricted browser environments.
+    }
   }, [theme]);
 
   const toggleTheme = () => {

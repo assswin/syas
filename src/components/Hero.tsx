@@ -54,24 +54,18 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <section id="home" className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center pt-8 pb-16 overflow-hidden font-sans">
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+        <div className=" grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column Text details */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 glass-pill rounded-full border border-indigo-500/20 text-xs font-extrabold text-indigo-600 dark:text-indigo-400">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-              </span>
-              <span>{t('hero.badge')}</span>
-            </div>
+            
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 dark:text-white leading-[1.08] tracking-tight">
               We Engineer <span className="gradient-text">Custom Digital Solutions</span> for Growing Businesses
             </h1>
 
-            <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+            <p className="text-center text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
               {t('hero.tagline')}
             </p>
 

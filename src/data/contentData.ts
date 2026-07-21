@@ -181,6 +181,21 @@ export const translations: any = {
       github: "GitHub Repository",
       items: [
         {
+          id: "project-5",
+          title: "Northstar - Marketing Site",
+          category: "websites",
+          image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80",
+          description: "A conversion-focused marketing website for a consulting firm with SEO structure, clear calls to action, and a fast mobile experience.",
+          clientIndustry: "Professional Services",
+          problem: "The brand had an outdated website that was difficult to navigate and not ranking well for target search terms.",
+          solution: "Rebuilt the site with a clear messaging hierarchy, CMS-friendly content blocks, and a performance-first frontend experience.",
+          technologies: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
+          results: ["Raised organic traffic by 38% in 90 days", "Improved conversion rate by 24%", "Reduced average page load time to under 1.7s"],
+          liveUrl: "#",
+          githubUrl: "#",
+          isDemo: true
+        },
+        {
           id: "project-1",
           title: "Veloce - E-Commerce Analytics",
           category: "dashboard",

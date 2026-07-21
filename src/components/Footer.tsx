@@ -25,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 S
               </div>
               <span className="font-black text-lg tracking-tight text-slate-900 dark:text-white">
-                Syay<span className="gradient-text">Labs</span>
+                Syay<span className="gradient-text">Tech</span>
               </span>
             </div>
             

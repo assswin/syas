@@ -4,17 +4,25 @@ import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import type { ProjectItem } from '../data/contentData';
 
+type PortfolioFilter = 'all' | 'websites' | 'mobile' | 'ai' | 'automation' | 'dashboard';
+
 export const Portfolio: React.FC = () => {
   const { t } = useLanguage();
   const revealRef = useScrollReveal();
-  const [activeFilter, setActiveFilter] = useState<'all' | 'websites' | 'mobile' | 'ai' | 'automation' | 'dashboard'>('all');
+  const [activeFilter, setActiveFilter] = useState<PortfolioFilter>('all');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   const projects: ProjectItem[] = t('portfolio.items') as any || [];
 
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(p => p.category === activeFilter);
+  const matchesFilter = (project: ProjectItem, filter: PortfolioFilter) => {
+    if (filter === 'all') return true;
+    if (filter === 'websites') {
+      return ['websites', 'website', 'web', 'web-dev'].includes(project.category);
+    }
+    return project.category === filter;
+  };
+
+  const filteredProjects = projects.filter((project) => matchesFilter(project, activeFilter));
 
   const filters = [
     { value: 'all', label: t('portfolio.filterAll') },
@@ -46,7 +54,7 @@ export const Portfolio: React.FC = () => {
           {filters.map((filter) => (
             <button
               key={filter.value}
-              onClick={() => setActiveFilter(filter.value as any)}
+              onClick={() => setActiveFilter(filter.value as PortfolioFilter)}
               className={`py-2 px-5 text-xs font-extrabold rounded-full transition-all duration-200 ${
                 activeFilter === filter.value
                   ? 'glow-btn shadow-md'
@@ -60,58 +68,64 @@ export const Portfolio: React.FC = () => {
 
         {/* Projects Grid */}
         <div ref={revealRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, idx) => (
-            <div
-              key={project.id}
-              onClick={() => setSelectedProject(project)}
-              className={`reveal stagger-${idx + 1} group glass-card rounded-3xl overflow-hidden cursor-pointer flex flex-col sm:flex-row text-left hover:border-indigo-500/40 transition-all duration-300`}
-            >
-              {/* Visual Card image */}
-              <div className="sm:w-1/2 relative h-52 sm:h-auto overflow-hidden">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                {project.isDemo && (
-                  <span className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-wider border border-white/20">
-                    {t('portfolio.demoLabel')}
-                  </span>
-                )}
-              </div>
-
-              {/* Text Card description */}
-              <div className="sm:w-1/2 p-6 flex flex-col justify-between">
-                <div className="space-y-2">
-                  <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">
-                    {project.category.replace('-',' ')}
-                  </span>
-                  <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-350 line-clamp-3 leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 mt-5">
-                  {project.technologies.slice(0, 3).map((tech, idx) => (
-                    <span 
-                      key={idx} 
-                      className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-extrabold px-2.5 py-1 rounded-xl"
-                    >
-                      {tech}
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project, idx) => (
+              <div
+                key={project.id}
+                onClick={() => setSelectedProject(project)}
+                className={`reveal stagger-${idx + 1} group glass-card rounded-3xl overflow-hidden cursor-pointer flex flex-col sm:flex-row text-left hover:border-indigo-500/40 transition-all duration-300`}
+              >
+                {/* Visual Card image */}
+                <div className="sm:w-1/2 relative h-52 sm:h-auto overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  {project.isDemo && (
+                    <span className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-wider border border-white/20">
+                      {t('portfolio.demoLabel')}
                     </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="text-[10px] text-slate-400 font-extrabold pt-1">+{project.technologies.length - 3}</span>
                   )}
                 </div>
+
+                {/* Text Card description */}
+                <div className="sm:w-1/2 p-6 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">
+                      {project.category.replace('-',' ')}
+                    </span>
+                    <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-350 line-clamp-3 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5 mt-5">
+                    {project.technologies.slice(0, 3).map((tech, idx) => (
+                      <span 
+                        key={idx} 
+                        className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-extrabold px-2.5 py-1 rounded-xl"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 3 && (
+                      <span className="text-[10px] text-slate-400 font-extrabold pt-1">+{project.technologies.length - 3}</span>
+                    )}
+                  </div>
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="md:col-span-2 rounded-3xl border border-dashed border-slate-300/70 dark:border-slate-700/70 bg-white/60 dark:bg-slate-900/40 p-8 text-center">
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">No projects match this filter yet.</p>
             </div>
-          ))}
+          )}
         </div>
 
         {/* Project Details Modal */}

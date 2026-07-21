@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Clock, Calendar, ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import type { BlogItem } from '../data/contentData';

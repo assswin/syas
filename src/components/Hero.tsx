@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({
               We Engineer <span className="gradient-text">Custom Digital Solutions</span> for Growing Businesses
             </h1>
 
-            <p className="text-center text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+            <p className=" text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
               {t('hero.tagline')}
             </p>
 

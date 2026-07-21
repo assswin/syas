@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Upload, FileText, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Upload, FileText, CheckCircle, MessageSquare } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface ContactProps {
@@ -55,7 +55,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
     const EXCEL_WEBHOOK_URL = import.meta.env.VITE_EXCEL_WEBHOOK_URL || "";
     if (EXCEL_WEBHOOK_URL && EXCEL_WEBHOOK_URL !== '/api/leads') {
       if (window.location.protocol === 'https:' && EXCEL_WEBHOOK_URL.startsWith('http://')) {
-        return; // Block mixed content HTTP request
+        return;
       }
       fetch(EXCEL_WEBHOOK_URL, {
         method: 'POST',
@@ -73,37 +73,44 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-transparent transition-colors font-sans text-left relative">
+    <section id="contact" className="py-24 transition-colors font-sans text-left relative">
       <div className="gradient-divider"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Left Form (Col Span 7) */}
-          <div className="lg:col-span-7 glass-card p-6 md:p-8 rounded-3xl">
+          <div className="lg:col-span-7 glass-card p-7 md:p-9 rounded-3xl border border-white/80 dark:border-white/10 shadow-2xl">
             {isSuccess ? (
-              <div className="py-20 text-center flex flex-col items-center justify-center space-y-4">
-                <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-2">
-                  <CheckCircle size={36} />
+              <div className="py-20 text-center flex flex-col items-center justify-center space-y-4 animate-fade-in">
+                <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mb-2 border border-emerald-500/20">
+                  <CheckCircle size={44} />
                 </div>
-                <h3 className="text-xl font-bold text-slate-850 dark:text-white">
-                  We connect Shortly
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white">
+                  We'll Connect Shortly
                 </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm">
+                  Thank you! Our engineering team has received your inquiry and will reach out within 24 hours.
+                </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-1">
-                  <h3 className="text-xl font-extrabold text-slate-850 dark:text-white">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="space-y-2">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50 flex items-center gap-1.5 w-fit">
+                    <MessageSquare size={13} />
+                    Get In Touch
+                  </span>
+                  <h3 className="text-2xl font-black text-slate-900 dark:text-white">
                     {t('contact.title')}
                   </h3>
-                  <p className="text-xs text-slate-455 dark:text-slate-450">
+                  <p className="text-xs text-slate-600 dark:text-slate-350">
                     {t('contact.subtitle')}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                    <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1.5">
                       {t('contact.form.name')}
                     </label>
                     <input
@@ -113,12 +120,12 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Jane Doe"
-                      className="w-full px-3.5 py-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                      className="w-full px-4 py-3 text-xs glass-input rounded-2xl"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                    <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1.5">
                       {t('contact.form.email')}
                     </label>
                     <input
@@ -128,14 +135,14 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="jane@company.com"
-                      className="w-full px-3.5 py-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                      className="w-full px-4 py-3 text-xs glass-input rounded-2xl"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                    <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1.5">
                       {t('contact.form.phone')}
                     </label>
                     <input
@@ -144,18 +151,18 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 99999 99999"
-                      className="w-full px-3.5 py-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                      className="w-full px-4 py-3 text-xs glass-input rounded-2xl"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                    <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1.5">
                       {t('contact.form.service')}
                     </label>
                     <select
                       value={service}
                       onChange={(e) => setService(e.target.value)}
-                      className="w-full px-3.5 py-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                      className="w-full px-4 py-3 text-xs glass-input rounded-2xl"
                     >
                       <option value="web-dev">Website Development</option>
                       <option value="web-apps">Web Applications / SaaS</option>
@@ -168,13 +175,13 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1.5">
                     {t('contact.form.budget')}
                   </label>
                   <select
                     value={budget}
                     onChange={(e) => setBudget(e.target.value)}
-                    className="w-full px-3.5 py-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                    className="w-full px-4 py-3 text-xs glass-input rounded-2xl"
                   >
                     <option value="under-5k">Under $5,000</option>
                     <option value="5k-10k">$5,000 - $10,000</option>
@@ -184,7 +191,7 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1.5">
                     {t('contact.form.message')}
                   </label>
                   <textarea
@@ -194,19 +201,19 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Tell us details about what you want to construct, third-party services, and targets..."
-                    className="w-full px-3.5 py-3 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                    className="w-full px-4 py-3 text-xs glass-input rounded-2xl"
                   />
                 </div>
 
                 {/* Brief upload input */}
                 <div>
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                  <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1.5">
                     {t('contact.form.upload')}
                   </label>
                   
                   <div className="flex items-center gap-3">
-                    <label className="flex items-center gap-1.5 px-4 py-2.5 border border-slate-250 dark:border-slate-800 text-slate-655 dark:text-slate-350 bg-white dark:bg-slate-800 rounded-xl text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-200 cursor-pointer">
-                      <Upload size={14} />
+                    <label className="flex items-center gap-2 px-4 py-2.5 glass-card rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-indigo-500/40 cursor-pointer">
+                      <Upload size={14} className="text-indigo-500" />
                       Choose file
                       <input 
                         type="file" 
@@ -215,12 +222,12 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                       />
                     </label>
                     {fileAttachment ? (
-                      <span className="text-xs text-slate-600 dark:text-slate-300 font-medium flex items-center gap-1.5 bg-indigo-50/50 dark:bg-indigo-950/20 px-3 py-1.5 rounded-xl">
-                        <FileText size={13} className="text-indigo-650" />
+                      <span className="text-xs text-indigo-600 dark:text-indigo-400 font-extrabold flex items-center gap-1.5 glass-pill px-3 py-1.5 rounded-xl border border-indigo-500/30">
+                        <FileText size={14} />
                         {fileAttachment}
                       </span>
                     ) : (
-                      <span className="text-[10px] text-slate-450">No brief uploaded</span>
+                      <span className="text-[10px] text-slate-400">No brief uploaded</span>
                     )}
                   </div>
                 </div>
@@ -228,9 +235,9 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold text-xs py-4 rounded-2xl flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer"
+                  className="glow-btn w-full text-xs font-bold py-4 rounded-2xl flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
-                  <Send size={14} />
+                  <Send size={15} />
                   <span>{t('contact.form.submit')}</span>
                 </button>
               </form>
@@ -241,72 +248,69 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
           <div className="lg:col-span-5 space-y-8 flex flex-col justify-between">
             <div className="space-y-6">
               <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50">
-                Contact Info
+                Direct Contact
               </span>
-              <h2 className="text-2xl font-extrabold text-slate-850 dark:text-white leading-tight">
+              <h2 className="text-2xl font-black text-slate-900 dark:text-white leading-tight">
                 Let's Construct Something Sustainable
               </h2>
               
               <div className="space-y-4">
                 <a 
                   href={`mailto:${t('contact.info.email')}`}
-                  className="flex items-center gap-3.5 p-4 bg-slate-50 dark:bg-slate-850/50 border border-slate-150 dark:border-slate-800 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800 transition-colors duration-200 text-slate-700 dark:text-slate-205"
+                  className="glass-card flex items-center gap-4 p-4 rounded-2xl text-slate-800 dark:text-slate-200 hover:border-indigo-500/40"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 text-indigo-650 dark:text-indigo-400 flex items-center justify-center shadow-sm">
-                    <Mail size={18} />
+                  <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                    <Mail size={20} />
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-400 font-bold block uppercase">Email Support</span>
-                    <span className="text-xs font-bold">{t('contact.info.email')}</span>
+                    <span className="text-[9px] text-slate-400 font-black block uppercase">Email Support</span>
+                    <span className="text-xs font-extrabold">{t('contact.info.email')}</span>
                   </div>
                 </a>
 
                 <a 
                   href={`tel:${t('contact.info.phone')}`}
-                  className="flex items-center gap-3.5 p-4 bg-slate-50 dark:bg-slate-850/50 border border-slate-150 dark:border-slate-800 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800 transition-colors duration-200 text-slate-700 dark:text-slate-205"
+                  className="glass-card flex items-center gap-4 p-4 rounded-2xl text-slate-800 dark:text-slate-200 hover:border-indigo-500/40"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 text-indigo-650 dark:text-indigo-400 flex items-center justify-center shadow-sm">
-                    <Phone size={18} />
+                  <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                    <Phone size={20} />
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-400 font-bold block uppercase">Phone / Callback</span>
-                    <span className="text-xs font-bold">{t('contact.info.phone')}</span>
+                    <span className="text-[9px] text-slate-400 font-black block uppercase">Phone / Callback</span>
+                    <span className="text-xs font-extrabold">{t('contact.info.phone')}</span>
                   </div>
                 </a>
 
-                <div 
-                  className="flex items-center gap-3.5 p-4 bg-slate-50 dark:bg-slate-850/50 border border-slate-150 dark:border-slate-800 rounded-2xl text-slate-700 dark:text-slate-205"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 text-indigo-655 dark:text-indigo-400 flex items-center justify-center shadow-sm">
-                    <MapPin size={18} />
+                <div className="glass-card flex items-center gap-4 p-4 rounded-2xl text-slate-800 dark:text-slate-200">
+                  <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                    <MapPin size={20} />
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-400 font-bold block uppercase">{t('contact.info.office')}</span>
-                    <span className="text-xs font-bold">{t('contact.info.location')}</span>
+                    <span className="text-[9px] text-slate-400 font-black block uppercase">{t('contact.info.office')}</span>
+                    <span className="text-xs font-extrabold">{t('contact.info.location')}</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Stylized CSS Map block */}
-            <div className="p-6 bg-slate-900 border border-slate-850 dark:bg-slate-950 dark:border-slate-900 rounded-3xl text-left font-mono text-slate-400 relative overflow-hidden h-44">
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#312e81_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div className="p-6 glass-card rounded-3xl text-left font-mono text-slate-300 relative overflow-hidden h-48 border border-white/80 dark:border-white/10">
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:16px_16px]"></div>
               
-              <div className="relative z-10 space-y-2 text-[10px]">
-                <div className="flex justify-between border-b border-slate-800 pb-2">
-                  <span className="text-indigo-400 font-bold uppercase">Syay coordinate</span>
-                  <span className="text-slate-500">SYSTEM STABLE</span>
+              <div className="relative z-10 space-y-2.5 text-[11px]">
+                <div className="flex justify-between border-b border-slate-200/50 dark:border-slate-800 pb-2">
+                  <span className="text-indigo-400 font-bold uppercase">Syay Coordinate</span>
+                  <span className="text-emerald-400 font-bold">● SYSTEM STABLE</span>
                 </div>
-                <p>&gt; Chennai</p>
-                <p className="text-emerald-450">&gt; LAT: 37.3382° N | LONG: 121.8863° W</p>
-                <p>&gt; Meeting Scopes: Available weekdays</p>
+                <p>&gt; Chennai Engineering Hub</p>
+                <p className="text-cyan-400">&gt; LAT: 37.3382° N | LONG: 121.8863° W</p>
                 
                 <button
                   type="button"
                   onClick={onOpenMeeting}
-                  className="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white font-sans font-bold px-4 py-2 rounded-xl text-[10px] block w-fit border border-indigo-500/20 transition-colors duration-200"
+                  className="mt-3 glow-btn px-4 py-2 rounded-xl text-[11px] font-bold block font-sans"
                 >
-                  Schedule in-office meeting
+                  Schedule Strategy Meeting
                 </button>
               </div>
             </div>
@@ -318,3 +322,4 @@ export const Contact: React.FC<ContactProps> = ({ onOpenMeeting }) => {
     </section>
   );
 };
+

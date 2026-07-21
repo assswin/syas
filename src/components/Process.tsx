@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { Award, ClipboardList, Code, CheckSquare, CloudLightning, LifeBuoy } from 'lucide-react';
+import { Award, ClipboardList, Code, CheckSquare, CloudLightning, LifeBuoy, CheckCircle2 } from 'lucide-react';
 
 export const Process: React.FC = () => {
   const { t } = useLanguage();
@@ -41,7 +41,6 @@ export const Process: React.FC = () => {
     "https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=600&q=80"
   ];
 
-  // Add detailed bullet points/deliverables for each step to make it feel extremely professional
   const deliverables = [
     ["1-on-1 discovery scoping meeting", "Detailed feature checklists", "System architecture recommendations"],
     ["Itemized cost estimates", "Phased milestone delivery dates", "Formal contract and SLAs"],
@@ -59,35 +58,38 @@ export const Process: React.FC = () => {
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <h2 className="text-3xl font-extrabold text-slate-850 dark:text-white tracking-tight">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50">
+            Development Roadmap
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             {t('process.title')}
           </h2>
-          <p className="text-sm text-slate-550 dark:text-slate-400 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-slate-350 leading-relaxed">
             {t('process.subtitle')}
           </p>
         </div>
 
         {/* Process layout (Visual stepper grid) */}
-        <div ref={revealRef} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start reveal">
+        <div ref={revealRef} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch reveal">
           
           {/* Stepper buttons (Col Span 5) */}
-          <div className="lg:col-span-5 space-y-3 text-left">
+          <div className="lg:col-span-5 space-y-3 text-left flex flex-col justify-between">
             {steps.map((step, idx) => {
               const isActive = activeStep === idx;
               return (
                 <button
                   key={idx}
                   onClick={() => setActiveStep(idx)}
-                  className={`w-full p-4 rounded-2xl transition-colors duration-200 text-left flex items-center space-x-4 ${
+                  className={`w-full p-4 rounded-2xl transition-all duration-300 text-left flex items-center space-x-4 ${
                     isActive 
-                      ? 'glass-card border border-slate-200/40 bg-slate-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 ring-1 ring-indigo-200/70'
-                      : 'border border-slate-200/50 bg-white/40 hover:bg-white/70 dark:border-slate-700/30 dark:bg-slate-800/40 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-350'
+                      ? 'glass-card border-indigo-500/60 shadow-glow-indigo bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 ring-1 ring-indigo-500/30 scale-[1.02]'
+                      : 'glass-card hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300'
                   }`}
                 >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center font-extrabold transition-colors ${
                     isActive 
-                      ? 'bg-indigo-650 text-white' 
-                      : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60'
+                      ? 'bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white shadow-md' 
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                   }`}>
                     {getStepIcon(step.num)}
                   </div>
@@ -95,7 +97,7 @@ export const Process: React.FC = () => {
                     <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mb-0.5">
                       Phase {step.num}
                     </span>
-                    <span className="text-xs font-extrabold text-slate-850 dark:text-slate-205">
+                    <span className="text-sm font-extrabold text-slate-900 dark:text-white">
                       {step.title}
                     </span>
                   </div>
@@ -105,35 +107,36 @@ export const Process: React.FC = () => {
           </div>
 
           {/* Stepper Detail Explanations (Col Span 7) */}
-          <div className="lg:col-span-7 glass-card premium-card rounded-3xl p-6 md:p-8 text-left h-full min-h-[380px] flex flex-col justify-between relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-slate-900/8 rounded-full blur-[40px] -z-10 translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+          <div className="lg:col-span-7 glass-card rounded-3xl p-6 md:p-8 text-left flex flex-col justify-between relative overflow-hidden border border-white/80 dark:border-white/10">
+            <div className="absolute top-0 right-0 w-72 h-72 bg-indigo-500/10 rounded-full blur-[90px] -z-10 pointer-events-none"></div>
+            
             {steps[activeStep] && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full items-center">
                 {/* Left contents */}
-                <div className="flex flex-col justify-between space-y-4">
-                  <div className="space-y-4">
+                <div className="flex flex-col justify-between space-y-5">
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-5xl font-black text-indigo-600/10 dark:text-indigo-400/15">
+                      <span className="text-5xl font-black gradient-text opacity-30">
                         {steps[activeStep].num}
                       </span>
-                      <span className="text-[10px] font-bold uppercase bg-indigo-50 dark:bg-indigo-950/40 text-indigo-655 dark:text-indigo-400 px-3 py-1 rounded-full border border-indigo-100/50">
-                        Deliverables Checklist
+                      <span className="text-[10px] font-black uppercase bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-full border border-indigo-500/20">
+                        Milestone Deliverables
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-slate-850 dark:text-white">
+                    <h3 className="text-xl font-black text-slate-900 dark:text-white">
                       {steps[activeStep].title}
                     </h3>
                     
-                    <p className="text-xs text-slate-550 dark:text-slate-400 leading-relaxed">
+                    <p className="text-xs text-slate-600 dark:text-slate-350 leading-relaxed">
                       {steps[activeStep].desc}
                     </p>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-2.5">
+                  <div className="pt-5 border-t border-slate-200/60 dark:border-slate-800 space-y-3">
                     {deliverables[activeStep].map((item, idx) => (
-                      <div key={idx} className="flex items-start space-x-2.5 text-xs text-slate-705 dark:text-slate-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0"></span>
+                      <div key={idx} className="flex items-start space-x-2.5 text-xs font-bold text-slate-700 dark:text-slate-200">
+                        <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </div>
                     ))}
@@ -141,13 +144,16 @@ export const Process: React.FC = () => {
                 </div>
 
                 {/* Right image */}
-                <div className="relative rounded-2xl overflow-hidden h-48 md:h-full min-h-[220px] border border-slate-200/50 dark:border-slate-800/80 shadow-sm">
+                <div className="relative rounded-2xl overflow-hidden h-64 md:h-full min-h-[250px] border border-slate-200/60 dark:border-slate-800 shadow-lg group">
                   <img 
                     src={phaseImages[activeStep]} 
                     alt={steps[activeStep].title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-200"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <p className="text-xs font-mono font-bold text-indigo-300">Phase {steps[activeStep].num} Overview</p>
+                  </div>
                 </div>
               </div>
             )}
@@ -159,3 +165,4 @@ export const Process: React.FC = () => {
     </section>
   );
 };
+

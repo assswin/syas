@@ -1,88 +1,83 @@
 import React, { useState } from 'react';
-import { MessageSquare, Send, X } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { MessageCircle, X, PhoneCall } from 'lucide-react';
 
 export const LiveChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const { t } = useLanguage();
+  const [userMsg, setUserMsg] = useState('');
 
-  const handleSend = (e: React.FormEvent) => {
+  const WHATSAPP_PHONE = '919360537379'; // Syay Labs WhatsApp support
+
+  const handleStartWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!message.trim()) return;
-    
-    // Redirect to WhatsApp API
-    const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "919360537379"; // User's WhatsApp phone number
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
-    setMessage('');
+    const text = encodeURIComponent(userMsg.trim() || 'Hi Syay Labs team, I would like to inquire about building software.');
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${text}`, '_blank');
     setIsOpen(false);
+    setUserMsg('');
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
-      {/* Chat window */}
+      {/* Floating Chat Drawer */}
       {isOpen && (
-        <div className="mb-4 w-80 rounded-2xl bg-white shadow-sm border border-slate-100 overflow-hidden dark:bg-slate-900 dark:border-slate-800">
+        <div className="mb-4 w-80 glass-modal rounded-3xl shadow-2xl overflow-hidden border border-white/80 dark:border-white/10 animate-fade-in text-left">
           {/* Header */}
-          <div className="bg-emerald-600 px-4 py-3 flex items-center justify-between text-white">
-            <div className="flex items-center space-x-2">
+          <div className="p-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex justify-between items-center">
+            <div className="flex items-center space-x-3">
               <div className="relative">
-                <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-sm">
-                  SY
+                <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center font-black text-sm border border-white/30">
+                  SL
                 </div>
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-emerald-600"></div>
+                <span className="w-2.5 h-2.5 bg-emerald-400 border-2 border-emerald-600 rounded-full absolute bottom-0 right-0"></span>
               </div>
               <div>
-                <p className="font-semibold text-sm">Syay Support</p>
-                <p className="text-xs text-emerald-100">Online • Usually replies in minutes</p>
+                <h4 className="text-xs font-black">Syay Support Team</h4>
+                <p className="text-[10px] text-emerald-100 flex items-center gap-1">
+                  <span>● Online on WhatsApp</span>
+                </p>
               </div>
             </div>
+            
             <button 
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:text-emerald-200 transition-colors p-1 rounded-full hover:bg-emerald-700/50"
+              onClick={() => setIsOpen(false)} 
+              className="text-white/80 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10"
             >
               <X size={16} />
             </button>
           </div>
 
-          {/* Messages body */}
-          <div className="p-4 bg-slate-50 dark:bg-slate-950/40 h-44 overflow-y-auto space-y-3 flex flex-col justify-end">
-            <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none text-xs text-slate-700 dark:text-slate-200 max-w-[85%] self-start shadow-sm border border-slate-100 dark:border-slate-700/50">
-              {t('dashboard.mockChat.intro')}
+          {/* Body */}
+          <div className="p-4 space-y-3">
+            <div className="p-3.5 glass-card rounded-2xl text-xs text-slate-800 dark:text-slate-200 leading-relaxed border border-emerald-500/20">
+              👋 Hello! Need quick answers regarding pricing, project specs, or strategy calls? Message us directly on WhatsApp for instant assistance!
             </div>
-          </div>
 
-          {/* Footer input form */}
-          <form onSubmit={handleSend} className="p-3 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex items-center space-x-2">
-            <input
-              type="text"
-              placeholder={t('dashboard.chatPlaceholder')}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="flex-1 px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
-            />
-            <button
-              type="submit"
-              className="bg-emerald-600 text-white p-2 rounded-xl hover:bg-emerald-700 transition-colors duration-200 flex items-center justify-center"
-            >
-              <Send size={14} />
-            </button>
-          </form>
+            <form onSubmit={handleStartWhatsApp} className="space-y-3 pt-1">
+              <input
+                type="text"
+                value={userMsg}
+                onChange={(e) => setUserMsg(e.target.value)}
+                placeholder="Type your message here..."
+                className="w-full px-3.5 py-2.5 text-xs glass-input rounded-xl font-bold"
+              />
+              <button
+                type="submit"
+                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all cursor-pointer"
+              >
+                <PhoneCall size={14} />
+                <span>Start WhatsApp Chat</span>
+              </button>
+            </form>
+          </div>
         </div>
       )}
 
-      {/* Floating Action Button */}
+      {/* Floating Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-sm transition-colors duration-200 relative group"
-        aria-label="Contact support on WhatsApp"
+        className="glow-btn p-4 rounded-full shadow-2xl flex items-center justify-center text-white border border-white/40 group hover:scale-110 transition-transform cursor-pointer"
+        aria-label="Open Live Chat"
       >
-        <span className="absolute -top-10 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 bg-slate-900 text-white text-xs px-2 py-1 rounded transition-opacity transition-transform duration-200 whitespace-nowrap dark:bg-slate-100 dark:text-slate-900">
-          {t('contact.info.whatsapp')}
-        </span>
-        <MessageSquare size={24} className={isOpen ? 'hidden' : 'block'} />
-        <X size={24} className={isOpen ? 'block' : 'hidden'} />
+        {isOpen ? <X size={24} /> : <MessageCircle size={24} className="group-hover:rotate-12 transition-transform" />}
       </button>
     </div>
   );

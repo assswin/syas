@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Code, Laptop, Smartphone, Eye, Brain, Settings, Check } from 'lucide-react';
+import { ArrowRight, Code, Laptop, Smartphone, Eye, Brain, Settings, Check, Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import type { ServiceItem } from '../data/contentData';
 
@@ -12,15 +12,16 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const servicesData: ServiceItem[] = t('services.items') as any || [];
+  
   const getIcon = (id: string) => {
     switch (id) {
-      case 'web-dev': return <Laptop className="text-indigo-650 dark:text-indigo-400" size={24} />;
-      case 'web-apps': return <Code className="text-indigo-650 dark:text-indigo-400" size={24} />;
-      case 'mobile-apps': return <Smartphone className="text-indigo-650 dark:text-indigo-400" size={24} />;
-      case 'ui-ux': return <Eye className="text-indigo-650 dark:text-indigo-400" size={24} />;
-      case 'ai-solutions': return <Brain className="text-indigo-650 dark:text-indigo-400" size={24} />;
-      case 'automation': return <Settings className="text-indigo-650 dark:text-indigo-400" size={24} />;
-      default: return <Code className="text-indigo-650 dark:text-indigo-400" size={24} />;
+      case 'web-dev': return <Laptop className="text-indigo-600 dark:text-indigo-400" size={26} />;
+      case 'web-apps': return <Code className="text-indigo-600 dark:text-indigo-400" size={26} />;
+      case 'mobile-apps': return <Smartphone className="text-indigo-600 dark:text-indigo-400" size={26} />;
+      case 'ui-ux': return <Eye className="text-indigo-600 dark:text-indigo-400" size={26} />;
+      case 'ai-solutions': return <Brain className="text-indigo-600 dark:text-indigo-400" size={26} />;
+      case 'automation': return <Settings className="text-indigo-600 dark:text-indigo-400" size={26} />;
+      default: return <Code className="text-indigo-600 dark:text-indigo-400" size={26} />;
     }
   };
 
@@ -29,117 +30,129 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
   };
 
   return (
-    <section id="services" className="py-24 bg-transparent transition-colors font-sans relative">
+    <section id="services" className="py-24 transition-colors font-sans relative">
       <div className="gradient-divider"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Title */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <h2 className="text-3xl font-extrabold text-slate-850 dark:text-white tracking-tight">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3.5 py-1.5 rounded-full border border-indigo-100/50">
+            Core Capabilities
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             {t('services.title')}
           </h2>
-          <p className="text-sm text-slate-550 dark:text-slate-400 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-slate-350 leading-relaxed">
             {t('services.subtitle')}
           </p>
         </div>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((service) => {
             const isExpanded = expandedId === service.id;
             
             return (
               <div
                 key={service.id}
-                className={`p-6 glass-card rounded-3xl premium-card text-left transition-colors duration-200 ${
-                  isExpanded ? 'ring-2 ring-indigo-600 dark:ring-indigo-500 scale-[1.01]' : ''
+                className={`p-7 glass-card rounded-3xl text-left transition-all duration-300 flex flex-col justify-between group ${
+                  isExpanded ? 'border-indigo-500/60 shadow-glow-indigo' : ''
                 }`}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center neu-raised">
-                    {getIcon(service.id)}
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 dark:bg-indigo-400/10 border border-indigo-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      {getIcon(service.id)}
+                    </div>
+                    {service.startingPrice && (
+                      <span className="text-[11px] font-extrabold px-3 py-1 bg-white/60 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800 rounded-full text-indigo-600 dark:text-indigo-400">
+                        {service.startingPrice}
+                      </span>
+                    )}
                   </div>
+
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {service.title}
+                  </h3>
                   
+                  <p className="text-xs text-slate-600 dark:text-slate-350 leading-relaxed mt-3">
+                    {service.description}
+                  </p>
                 </div>
 
-                <h3 className="text-base font-extrabold text-slate-850 dark:text-white">
-                  {service.title}
-                </h3>
-                
-                <p className="text-xs text-slate-550 dark:text-slate-400 leading-relaxed mt-2.5">
-                  {service.description}
-                </p>
-
                 {/* Toggle details action */}
-                <button
-                  onClick={() => handleToggle(service.id)}
-                  className="mt-4 flex items-center gap-1.5 text-xs font-bold text-indigo-650 dark:text-indigo-400 hover:text-indigo-750 transition-colors"
-                >
-                  <span>{isExpanded ? "Hide details" : t('services.learnMore')}</span>
-                  <ArrowRight size={13} className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
-                </button>
+                <div className="mt-6 pt-4 border-t border-slate-200/50 dark:border-slate-800/60">
+                  <button
+                    onClick={() => handleToggle(service.id)}
+                    className="flex items-center gap-1.5 text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+                  >
+                    <span>{isExpanded ? "Hide Details" : t('services.learnMore')}</span>
+                    <ArrowRight size={14} className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
+                  </button>
 
-                {/* Expanded Sections: features, benefits, tech, pricing */}
-                {isExpanded && (
-                  <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
-                    
-                    {/* Features */}
-                    <div>
-                      <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-450 mb-2">
-                        {t('services.featuresTitle')}
-                      </h4>
-                      <ul className="space-y-1.5">
-                        {service.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center text-xs text-slate-650 dark:text-slate-300 gap-2">
-                            <Check size={14} className="text-emerald-500 shrink-0" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Benefits */}
-                    <div>
-                      <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-450 mb-2">
-                        {t('services.benefitsTitle')}
-                      </h4>
-                      <ul className="space-y-1.5">
-                        {service.benefits.map((benefit, idx) => (
-                          <li key={idx} className="flex items-center text-xs text-slate-650 dark:text-slate-300 gap-2">
-                            <Check size={14} className="text-indigo-500 shrink-0" />
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Tech used */}
-                    <div>
-                      <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-450 mb-2">
-                        {t('services.techTitle')}
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {service.techUsed.map((tech, idx) => (
-                          <span 
-                            key={idx}
-                            className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 px-2.5 py-1 rounded-xl text-[10px] font-bold text-slate-600 dark:text-slate-300"
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                  {/* Expanded Sections: features, benefits, tech */}
+                  {isExpanded && (
+                    <div className="mt-5 space-y-4 pt-4 border-t border-slate-200/50 dark:border-slate-800/60 animate-fade-in">
+                      
+                      {/* Features */}
+                      <div>
+                        <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1">
+                          <Sparkles size={11} className="text-indigo-500" />
+                          {t('services.featuresTitle')}
+                        </h4>
+                        <ul className="space-y-1.5">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center text-xs text-slate-700 dark:text-slate-300 gap-2">
+                              <Check size={14} className="text-emerald-500 shrink-0" />
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    </div>
 
-                    {/* Action button */}
-                    <button
-                      onClick={() => onInquire(service.id)}
-                      className="w-full bg-indigo-650 hover:bg-indigo-700 text-white py-3.5 rounded-2xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors duration-200 cursor-pointer"
-                    >
-                      <span>{t('services.ctaButton')}</span>
-                      <ArrowRight size={13} />
-                    </button>
-                  </div>
-                )}
+                      {/* Benefits */}
+                      <div>
+                        <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-2">
+                          {t('services.benefitsTitle')}
+                        </h4>
+                        <ul className="space-y-1.5">
+                          {service.benefits.map((benefit, idx) => (
+                            <li key={idx} className="flex items-center text-xs text-slate-700 dark:text-slate-300 gap-2">
+                              <Check size={14} className="text-indigo-500 shrink-0" />
+                              <span>{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Tech used */}
+                      <div>
+                        <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-2">
+                          {t('services.techTitle')}
+                        </h4>
+                        <div className="flex flex-wrap gap-1.5">
+                          {service.techUsed.map((tech, idx) => (
+                            <span 
+                              key={idx}
+                              className="bg-white/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 px-2.5 py-1 rounded-xl text-[10px] font-bold text-slate-700 dark:text-slate-300"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Action button */}
+                      <button
+                        onClick={() => onInquire(service.id)}
+                        className="glow-btn w-full py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer mt-4"
+                      >
+                        <span>{t('services.ctaButton')}</span>
+                        <ArrowRight size={14} />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}
@@ -149,3 +162,4 @@ export const Services: React.FC<ServicesProps> = ({ onInquire }) => {
     </section>
   );
 };
+

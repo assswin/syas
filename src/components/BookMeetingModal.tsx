@@ -104,41 +104,46 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/55 backdrop-blur-sm">
-      <div className="relative w-full max-w-lg glass-modal border border-white/20 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden max-h-[90vh] overflow-y-auto font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-fade-in font-sans">
+      <div className="relative w-full max-w-lg glass-modal border border-white/80 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
         
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-850"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/60 z-10"
         >
           <X size={20} />
         </button>
 
         {isSuccess ? (
-          <div className="p-8 py-16 text-center flex flex-col items-center justify-center space-y-4">
-            <div className="w-16 h-16 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center mb-2">
-              <CheckCircle size={36} />
+          <div className="p-10 text-center flex flex-col items-center justify-center space-y-4 animate-fade-in">
+            <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mb-2 border border-emerald-500/20">
+              <CheckCircle size={44} />
             </div>
-            <h3 className="text-xl font-bold text-slate-850 dark:text-white">
-              We connect Shortly
+            <h3 className="text-2xl font-black text-slate-900 dark:text-white">
+              We'll Connect Shortly
             </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Your strategy call has been reserved for <span className="font-extrabold text-indigo-500">{selectedTime}</span> on <span className="font-extrabold text-indigo-500">{selectedDate}</span>.
+            </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-6">
             <div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Calendar className="text-indigo-600 dark:text-indigo-400" size={22} />
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                  <Calendar size={18} />
+                </div>
                 {t('meeting.title')}
               </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {t('meeting.subtitle')}
               </p>
             </div>
 
             {/* Date selection */}
             <div>
-              <label className="text-xs font-semibold text-slate-400 dark:text-slate-450 uppercase tracking-wider block mb-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">
                 {t('meeting.selectDate')}
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -147,10 +152,10 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                     key={date.value}
                     type="button"
                     onClick={() => setSelectedDate(date.value)}
-                    className={`py-2 px-1 text-xs font-medium rounded-xl border transition-colors duration-200 text-center ${
+                    className={`py-2.5 px-1 text-xs font-bold rounded-2xl border transition-all text-center ${
                       selectedDate === date.value
-                        ? 'border-indigo-600 bg-indigo-50 text-indigo-700 dark:border-indigo-500 dark:bg-indigo-950/40 dark:text-indigo-300'
-                        : 'border-slate-200 hover:border-slate-350 dark:border-slate-800 dark:hover:border-slate-700 text-slate-650 dark:text-slate-300'
+                        ? 'glow-btn shadow-md'
+                        : 'glass-card text-slate-700 dark:text-slate-300 hover:border-indigo-500/40'
                     }`}
                   >
                     {date.label}
@@ -161,8 +166,8 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
 
             {/* Time selection */}
             {selectedDate && (
-              <div>
-                <label className="text-xs font-semibold text-slate-400 dark:text-slate-450 uppercase tracking-wider block mb-2">
+              <div className="animate-fade-in">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">
                   {t('meeting.selectTime')}
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -171,13 +176,13 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                       key={time}
                       type="button"
                       onClick={() => setSelectedTime(time)}
-                      className={`py-2 px-3 text-xs font-medium rounded-xl border transition-colors duration-200 flex items-center gap-1.5 ${
+                      className={`py-2 px-3.5 text-xs font-bold rounded-2xl border transition-all flex items-center gap-1.5 ${
                         selectedTime === time
-                          ? 'border-indigo-600 bg-indigo-50 text-indigo-700 dark:border-indigo-500 dark:bg-indigo-950/40 dark:text-indigo-300'
-                          : 'border-slate-200 hover:border-slate-350 dark:border-slate-800 dark:hover:border-slate-700 text-slate-650 dark:text-slate-300'
+                          ? 'glow-btn shadow-md'
+                          : 'glass-card text-slate-700 dark:text-slate-300 hover:border-indigo-500/40'
                       }`}
                     >
-                      <Clock size={12} />
+                      <Clock size={13} />
                       {time}
                     </button>
                   ))}
@@ -186,13 +191,13 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
             )}
 
             {/* Form details */}
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               <div>
-                <label className="text-xs font-semibold text-slate-400 dark:text-slate-450 uppercase tracking-wider block mb-1">
+                <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">
                   {t('contact.form.name')}
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3.5 top-3.5 text-slate-400" size={16} />
+                  <User className="absolute left-3.5 top-3.5 text-indigo-500" size={16} />
                   <input
                     type="text"
                     required
@@ -200,17 +205,17 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Jane Doe"
-                    className="w-full pl-10 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-550 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                    className="w-full pl-10 pr-4 py-3 text-xs glass-input rounded-2xl font-bold"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-400 dark:text-slate-450 uppercase tracking-wider block mb-1">
+                <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">
                   {t('contact.form.email')}
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-3.5 text-slate-400" size={16} />
+                  <Mail className="absolute left-3.5 top-3.5 text-indigo-500" size={16} />
                   <input
                     type="email"
                     required
@@ -218,17 +223,17 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="jane@company.com"
-                    className="w-full pl-10 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-550 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                    className="w-full pl-10 pr-4 py-3 text-xs glass-input rounded-2xl font-bold"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-400 dark:text-slate-450 uppercase tracking-wider block mb-1">
+                <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">
                   Client Phone No
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3.5 top-3.5 text-slate-400" size={16} />
+                  <Phone className="absolute left-3.5 top-3.5 text-indigo-500" size={16} />
                   <input
                     type="tel"
                     required
@@ -236,7 +241,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 99999 99999"
-                    className="w-full pl-10 pr-4 py-3 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-550 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                    className="w-full pl-10 pr-4 py-3 text-xs glass-input rounded-2xl font-bold"
                   />
                 </div>
               </div>
@@ -245,7 +250,7 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
             <button
               type="submit"
               disabled={!selectedDate || !selectedTime || !name || !email || !phone || isSubmitting}
-              className="w-full bg-indigo-600 text-white font-medium text-sm py-3.5 rounded-2xl hover:bg-indigo-750 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed dark:disabled:bg-slate-800 dark:disabled:text-slate-600 transition-colors duration-200"
+              className="glow-btn w-full text-xs font-bold py-4 rounded-2xl cursor-pointer disabled:opacity-50"
             >
               {t('meeting.confirm')}
             </button>
@@ -255,3 +260,4 @@ export const BookMeetingModal: React.FC<BookMeetingModalProps> = ({ isOpen, onCl
     </div>
   );
 };
+

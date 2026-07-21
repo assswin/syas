@@ -79,27 +79,27 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/55 backdrop-blur-sm">
-      <div className="relative w-full max-w-2xl glass-modal border border-white/20 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden max-h-[90vh] overflow-y-auto font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-fade-in">
+      <div className="relative w-full max-w-2xl glass-modal rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto font-sans border border-white/80 dark:border-white/10">
         
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-850"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/60 z-10"
         >
           <X size={20} />
         </button>
 
         {isSuccess ? (
-          <div className="p-8 text-center flex flex-col items-center justify-center space-y-4">
-            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-2">
-              <CheckCircle2 size={36} />
+          <div className="p-10 text-center flex flex-col items-center justify-center space-y-4 animate-fade-in">
+            <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mb-2 border border-emerald-500/20">
+              <CheckCircle2 size={44} />
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <h3 className="text-2xl font-black text-slate-900 dark:text-white">
               {t('estimator.leadForm.success')}
             </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md">
-              We have received your estimate of <span className="font-semibold text-emerald-600 dark:text-emerald-400">${estimatedPrice.toLocaleString()}</span>. A software architect will review your project requirements and reach out via email.
+            <p className="text-xs text-slate-600 dark:text-slate-350 max-w-md leading-relaxed">
+              We have received your estimate of <span className="font-extrabold text-emerald-500 text-sm">${estimatedPrice.toLocaleString()}</span>. A software architect will review your project requirements and reach out via email.
             </p>
             <button
               onClick={() => {
@@ -110,18 +110,20 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                 setDetails('');
                 onClose();
               }}
-              className="mt-6 w-full max-w-xs bg-indigo-600 text-white font-medium text-sm py-3 rounded-2xl hover:bg-indigo-700 transition-colors duration-200"
+              className="mt-6 glow-btn w-full max-w-xs py-3.5 rounded-2xl text-xs font-bold"
             >
               Done
             </button>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row h-full min-h-[500px]">
+          <div className="flex flex-col md:flex-row h-full min-h-[520px]">
             {/* Form Side */}
             <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <Calculator className="text-indigo-600 dark:text-indigo-400" size={22} />
+                <h3 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                    <Calculator size={18} />
+                  </div>
                   {t('estimator.title')}
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -129,9 +131,9 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                 </p>
                 
                 {/* Progress bar */}
-                <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-5 overflow-hidden">
+                <div className="w-full bg-slate-200/60 dark:bg-slate-800 h-2 rounded-full mt-5 overflow-hidden">
                   <div 
-                    className="bg-indigo-600 h-full progress-fill"
+                    className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full rounded-full transition-all duration-300"
                     style={{ width: `${(step / 3) * 100}%` }}
                   ></div>
                 </div>
@@ -140,15 +142,15 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
               {/* Steps Content */}
               <div className="my-6 space-y-4">
                 {step === 1 && (
-                  <div className="space-y-4">
+                  <div className="space-y-4 animate-fade-in">
                     <div>
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">
                         {t('estimator.steps.service')}
                       </label>
                       <select 
                         value={service}
                         onChange={(e) => setService(e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                        className="w-full px-4 py-3 text-xs glass-input rounded-2xl font-bold"
                       >
                         <option value="web-dev">Website Development</option>
                         <option value="web-apps">Web Application / Portal</option>
@@ -159,17 +161,17 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                     </div>
 
                     <div>
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">
                         {t('estimator.steps.complexity')}
                       </label>
                       <div className="space-y-2">
                         {['simple', 'medium', 'complex'].map((level) => (
                           <label 
                             key={level}
-                            className={`flex items-start p-3 rounded-xl border cursor-pointer transition-colors duration-200 ${
+                            className={`flex items-start p-3.5 rounded-2xl border cursor-pointer transition-all ${
                               complexity === level 
-                                ? 'border-indigo-600 bg-indigo-50/45 dark:border-indigo-550 dark:bg-indigo-950/20'
-                                : 'border-slate-150 hover:border-slate-250 dark:border-slate-800 dark:hover:border-slate-700'
+                                ? 'glass-card border-indigo-500/60 bg-indigo-500/10 shadow-glow-indigo'
+                                : 'glass-card hover:border-slate-300 dark:hover:border-slate-700'
                             }`}
                           >
                             <input 
@@ -181,8 +183,8 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                               className="mt-1 mr-3 accent-indigo-600"
                             />
                             <div className="text-left">
-                              <p className="text-xs font-bold text-slate-850 dark:text-slate-100 capitalize">{level}</p>
-                              <p className="text-[11px] text-slate-400 dark:text-slate-450 mt-0.5">
+                              <p className="text-xs font-black text-slate-900 dark:text-white capitalize">{level}</p>
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                                 {t(`estimator.complexityOptions.${level}`)}
                               </p>
                             </div>
@@ -194,21 +196,21 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                 )}
 
                 {step === 2 && (
-                  <div className="space-y-4">
+                  <div className="space-y-5 animate-fade-in">
                     <div>
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">
                         {t('estimator.steps.platforms')}
                       </label>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-3 gap-2.5">
                         {['web', 'mobile', 'both'].map((item) => (
                           <button
                             key={item}
                             type="button"
                             onClick={() => setPlatform(item)}
-                            className={`py-3 px-2 text-xs font-bold rounded-xl border transition-colors duration-200 text-center ${
+                            className={`py-3 px-2 text-xs font-black rounded-2xl border transition-all text-center ${
                               platform === item
-                                ? 'border-indigo-600 bg-indigo-50 text-indigo-700 dark:border-indigo-500 dark:bg-indigo-950/40 dark:text-indigo-300'
-                                : 'border-slate-200 dark:border-slate-800 dark:text-slate-350 hover:border-slate-300 dark:hover:border-slate-700'
+                                ? 'glow-btn shadow-md'
+                                : 'glass-card text-slate-700 dark:text-slate-300 hover:border-indigo-500/40'
                             }`}
                           >
                             {t(`estimator.platformOptions.${item}`)}
@@ -218,17 +220,17 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                     </div>
 
                     <div>
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">
                         {t('estimator.steps.timeline')}
                       </label>
                       <div className="space-y-2">
                         {['fast', 'standard', 'flexible'].map((time) => (
                           <label 
                             key={time}
-                            className={`flex items-center p-3 rounded-xl border cursor-pointer transition-colors duration-200 ${
+                            className={`flex items-center p-3.5 rounded-2xl border cursor-pointer transition-all ${
                               timeline === time 
-                                ? 'border-indigo-600 bg-indigo-50/45 dark:border-indigo-550 dark:bg-indigo-950/20'
-                                : 'border-slate-150 hover:border-slate-250 dark:border-slate-800 dark:hover:border-slate-700'
+                                ? 'glass-card border-indigo-500/60 bg-indigo-500/10 shadow-glow-indigo'
+                                : 'glass-card hover:border-slate-300 dark:hover:border-slate-700'
                             }`}
                           >
                             <input 
@@ -240,7 +242,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                               className="mr-3 accent-indigo-600"
                             />
                             <div className="text-left">
-                              <p className="text-xs font-bold text-slate-850 dark:text-slate-100">
+                              <p className="text-xs font-black text-slate-900 dark:text-white">
                                 {t(`estimator.timelineOptions.${time}`)}
                               </p>
                             </div>
@@ -252,13 +254,13 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                 )}
 
                 {step === 3 && (
-                  <form onSubmit={handleSubmit} className="space-y-3.5">
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                  <form onSubmit={handleSubmit} className="space-y-3.5 animate-fade-in">
+                    <p className="text-xs text-slate-600 dark:text-slate-350">
                       {t('estimator.leadForm.desc')}
                     </p>
                     
                     <div>
-                      <label className="text-xs font-semibold text-slate-400 block mb-1">
+                      <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">
                         {t('contact.form.name')}
                       </label>
                       <input
@@ -267,12 +269,12 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Jane Doe"
-                        className="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                        className="w-full px-4 py-2.5 text-xs glass-input rounded-xl font-bold"
                       />
                     </div>
 
                     <div>
-                      <label className="text-xs font-semibold text-slate-400 block mb-1">
+                      <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">
                         {t('contact.form.email')}
                       </label>
                       <input
@@ -281,12 +283,12 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="jane@company.com"
-                        className="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                        className="w-full px-4 py-2.5 text-xs glass-input rounded-xl font-bold"
                       />
                     </div>
 
                     <div>
-                      <label className="text-xs font-semibold text-slate-400 block mb-1">
+                      <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-1">
                         {t('contact.form.message')}
                       </label>
                       <textarea
@@ -294,7 +296,7 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                         value={details}
                         onChange={(e) => setDetails(e.target.value)}
                         placeholder="Include third-party syncs, features, etc."
-                        className="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                        className="w-full px-4 py-2.5 text-xs glass-input rounded-xl font-bold"
                       />
                     </div>
                   </form>
@@ -302,12 +304,12 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
               </div>
 
               {/* Navigation Actions */}
-              <div className="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex justify-between items-center pt-4 border-t border-slate-200/60 dark:border-slate-800">
                 {step > 1 ? (
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="flex items-center text-xs font-medium text-slate-500 hover:text-indigo-650 transition-colors"
+                    className="flex items-center text-xs font-black text-slate-500 hover:text-indigo-600 transition-colors"
                   >
                     <ChevronLeft size={16} /> Back
                   </button>
@@ -319,55 +321,55 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors duration-200"
+                    className="glow-btn px-6 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-1.5 cursor-pointer"
                   >
-                    Next <ChevronRight size={14} />
+                    Next <ChevronRight size={15} />
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={handleSubmit}
                     disabled={!name || !email}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-colors duration-200 disabled:bg-slate-100 disabled:text-slate-400 dark:disabled:bg-slate-800 dark:disabled:text-slate-655 cursor-pointer"
+                    className="glow-btn px-6 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                   >
-                    {t('estimator.leadForm.submit')} <ArrowRight size={14} />
+                    {t('estimator.leadForm.submit')} <ArrowRight size={15} />
                   </button>
                 )}
               </div>
             </div>
 
             {/* Sidebar Pricing Result */}
-            <div className="w-full md:w-60 bg-slate-50 dark:bg-slate-850 p-6 md:p-8 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-slate-150 dark:border-slate-800 text-center">
-              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-450 uppercase tracking-widest block mb-1">
+            <div className="w-full md:w-64 glass-pill p-6 md:p-8 flex flex-col justify-center items-center border-t md:border-t-0 md:border-l border-slate-200/60 dark:border-slate-800 text-center">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">
                 {t('estimator.steps.result')}
               </span>
               
-              <div className="flex items-center text-3xl font-extrabold text-slate-850 dark:text-white my-3">
-                <DollarSign size={24} className="text-indigo-600 dark:text-indigo-400 -mt-2" />
+              <div className="flex items-center text-4xl font-black text-slate-900 dark:text-white my-3 gradient-text">
+                <DollarSign size={28} className="text-indigo-500 -mt-2" />
                 <span>{estimatedPrice.toLocaleString()}</span>
               </div>
 
-              <p className="text-[10px] text-slate-400 dark:text-slate-450 leading-relaxed max-w-[180px]">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-[180px]">
                 Calculated ranges represent guidelines. Exact scope quotes will be verified by proposal reviews.
               </p>
 
               {/* Quick specs overview */}
-              <div className="w-full text-left mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                <div className="flex justify-between text-[10px]">
-                  <span className="text-slate-400 font-medium">Service:</span>
-                  <span className="text-slate-700 dark:text-slate-200 font-bold uppercase">{service.replace('-',' ')}</span>
+              <div className="w-full text-left mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800 space-y-2">
+                <div className="flex justify-between text-[10px] font-bold">
+                  <span className="text-slate-400">Service:</span>
+                  <span className="text-indigo-600 dark:text-indigo-400 uppercase">{service.replace('-',' ')}</span>
                 </div>
-                <div className="flex justify-between text-[10px]">
-                  <span className="text-slate-400 font-medium">Scale:</span>
-                  <span className="text-slate-700 dark:text-slate-200 font-bold uppercase">{complexity}</span>
+                <div className="flex justify-between text-[10px] font-bold">
+                  <span className="text-slate-400">Scale:</span>
+                  <span className="text-slate-700 dark:text-slate-200 uppercase">{complexity}</span>
                 </div>
-                <div className="flex justify-between text-[10px]">
-                  <span className="text-slate-400 font-medium">Platform:</span>
-                  <span className="text-slate-700 dark:text-slate-200 font-bold uppercase">{platform}</span>
+                <div className="flex justify-between text-[10px] font-bold">
+                  <span className="text-slate-400">Platform:</span>
+                  <span className="text-slate-700 dark:text-slate-200 uppercase">{platform}</span>
                 </div>
-                <div className="flex justify-between text-[10px]">
-                  <span className="text-slate-400 font-medium">Speed:</span>
-                  <span className="text-slate-700 dark:text-slate-200 font-bold uppercase">{timeline}</span>
+                <div className="flex justify-between text-[10px] font-bold">
+                  <span className="text-slate-400">Speed:</span>
+                  <span className="text-slate-700 dark:text-slate-200 uppercase">{timeline}</span>
                 </div>
               </div>
             </div>
@@ -377,3 +379,4 @@ export const CostEstimator: React.FC<CostEstimatorProps> = ({ isOpen, onClose })
     </div>
   );
 };
+
